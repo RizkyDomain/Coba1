@@ -7,16 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- PALET WARNA MUTLAK ARLECCHINO (Putih-Abu-Hitam-Merah Neon) --- */
+        /* --- ✨ PALET WARNA & VARIABEL MUTLAK ARLECCHINO ✨ --- */
         :root {
-            --bg-void: #030303; /* Hitam pekat dasar */
-            --bg-dark: #0a0a0a; /* Hitam abu untuk panel */
-            --text-main: #ffffff; /* Putih bersih glowing */
-            --text-dim: #909090; /* Abu-abu untuk deskripsi */
+            --void-black: #020202; /* Hitam pekat dasar */
+            --dark-gray: #101012; /* Hitam abu panel */
+            --pure-white: #ffffff; /* Putih bersih glowing */
+            --ash-white: #f0f0f0; /* Putih abu seimbang */
             --neon-red: #ff1a33; /* Merah neon sangat menyala */
             --crimson-red: #c91414; /* Merah darah */
-            --glass-bg: rgba(10, 10, 10, 0.5); /* Efek kaca transparan heavy */
-            --glass-border: rgba(255, 255, 255, 0.15); /* Border kaca tipis */
+            --dark-red: #7a0b0b; /* Merah tua Fatui */
+            --glass-bg: rgba(20, 20, 22, 0.4); /* Transparansi Kaca Heavy */
+            --glass-border: rgba(255, 255, 255, 0.15); /* Border Kaca */
         }
 
         /* --- BASIC SETUP & SELECTION --- */
@@ -26,71 +27,80 @@
         
         body {
             font-family: 'Rajdhani', sans-serif;
-            background-color: var(--bg-void);
-            color: var(--text-main);
+            background-color: var(--void-black);
+            color: var(--pure-white);
             overflow-x: hidden;
             min-height: 100vh;
-            /* Update Background: Gradasi Radial Neon Merah */
-            background-image: radial-gradient(circle at 50% 30%, rgba(201, 20, 20, 0.25) 0%, var(--bg-void) 70%);
+            /* Update Background: Lebih Terang dengan pendaran neon merah dan noise gelap */
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(201, 20, 20, 0.2) 0%, var(--void-black) 70%),
+                linear-gradient(rgba(20, 20, 22, 0.98), rgba(20, 20, 22, 0.98)),
+                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM2YzAwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwaDIwdjIwSDIWMjB6TTAgMjBoMjB2MjBIMFYyMHoyMCAwaDIwdjIwSDIwVjB6Ii8+PC9nPjwvZz48L3N2Zz4=');
             background-attachment: fixed;
         }
 
-        /* --- ✨ EFEK SPACE BREAK / SLICE (RUANG ANGKASA RETAK) ✨ --- */
-        /* Ini adalah lapisan di belakang konten yang membuat efek retakan */
-        .spacebreak-overlay {
+        /* --- ✨ EFEK SPACE BREAK (RETAPAN RUANG BURST) & ECHO ✨ --- */
+        .spacebreak-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
-            pointer-events: none; opacity: 0.9;
-        }
-        /* Retakan 1: Gelombang Tajam Merah */
-        .spacebreak-overlay::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(110deg, transparent 40%, var(--crimson-red) 40.2%, transparent 40.4%, transparent 60%, var(--neon-red) 60.2%, transparent 60.4%);
+            background: 
+                linear-gradient(110deg, transparent 40%, var(--crimson-red) 40.2%, transparent 40.4%, transparent 60%, var(--neon-red) 60.2%, transparent 60.4%),
+                linear-gradient(transparent 30%, rgba(255,255,255,0.03) 30.1%, transparent 30.2%);
             background-size: 200% 200%;
-            /* Teknik clip-path untuk membuat bentuk irisan tajam */
+            /* Teknik clip-path untuk membuat retakan irisan tajam non-linear */
             clip-path: polygon(0 0, 30% 0, 0 40%, 0 60%, 40% 0, 70% 0, 0 100%, 0 80%, 100% 0, 100% 20%, 30% 100%, 60% 100%, 100% 40%, 100% 60%, 100% 100%, 0 100%);
-            animation: spaceShatter 20s infinite linear;
-        }
-        /* Retakan 2: Echo Putih Abu samar */
-        .spacebreak-overlay::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.05) 30.1%, transparent 30.2%);
-            animation: spaceShatter 15s infinite linear reverse;
+            animation: spaceShatter 15s infinite linear alternate-reverse;
+            pointer-events: none;
+            opacity: 0.9;
         }
 
         @keyframes spaceShatter {
             0% { background-position: 0% 0%; transform: scale(1); }
-            50% { background-position: 100% 100%; transform: scale(1.05); }
+            50% { background-position: 100% 100%; transform: scale(1.03); }
             100% { background-position: 0% 0%; transform: scale(1); }
         }
 
-        /* --- ✨ TIPOGRAFI GENSHIN (✦ DIAMOND STAR) ✨ --- */
-        h1, h2, h3, .font-genshin {
-            font-family: 'Cinzel', serif;
+        /* --- ✨ TYPOGRAPHY GENSHIN & ✦ DIAMOND STAR ✨ --- */
+        h1, h2, h3, .logo-text, .glitch {
+            font-family: 'Cinzel', serif; /* Gothic/Elegant Style */
             text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 0 0 15px rgba(255,255,255,0.4);
         }
         
-        /* Implementasi Wajib: Judul menggunakan ✦ di depannya */
+        /* Implementasi Diamond Star Ikon Bintang di Judul */
         .genshin-title::before {
-            content: '✦ '; /* Bentuk Diamond Star khas Genshin */
+            content: '✦ '; /* Diamond Star khas Genshin */
             color: var(--neon-red);
             text-shadow: 0 0 10px var(--neon-red);
         }
 
-        /* --- GLITCH TEXT EFFECT (Untuk Judul Besar) --- */
-        .glitch { position: relative; display: inline-block; }
+        /* --- ✨ GLITCH TEXT EFFECT (Untuk Nama Besar) ✨ --- */
+        .glitch {
+            position: relative;
+            display: inline-block;
+            color: var(--text-main);
+            font-weight: 900;
+        }
         .glitch::before, .glitch::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; pointer-events: none;
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent;
+            pointer-events: none;
         }
         .glitch::before {
-            left: 2px; text-shadow: -2px 0 var(--neon-red);
-            clip: rect(24px, 550px, 90px, 0); animation: glitch-anim 3s infinite linear alternate-reverse;
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-red);
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 3s infinite linear alternate-reverse;
         }
         .glitch::after {
-            left: -2px; text-shadow: -2px 0 var(--ash-gray);
-            clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2.5s infinite linear alternate-reverse;
+            left: -2px;
+            text-shadow: -2px 0 var(--ash-white);
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
         }
+
         @keyframes glitch-anim {
             0% { clip: rect(10px, 9999px, 44px, 0); }
             20% { clip: rect(80px, 9999px, 90px, 0); }
@@ -100,43 +110,68 @@
             100% { clip: rect(60px, 9999px, 70px, 0); }
         }
 
-        /* --- HEADER NAVBAR (Fixed & Heavy Glass) --- */
+        /* --- ✨ HEADER NAVBAR (Fixed, Clean, & Glowing) ✨ --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(3, 3, 3, 0.7);
+            background: rgba(3, 3, 3, 0.75);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 2px solid var(--neon-red);
+            box-shadow: 0 4px 15px rgba(201, 20, 20, 0.3);
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 60px;
-            box-shadow: 0 4px 20px rgba(201, 20, 20, 0.4);
         }
 
-        .logo { font-size: 24px; font-weight: 900; color: var(--text-main); cursor: pointer; display: flex; align-items: center; gap: 10px; }
-        .logo-icon { color: var(--neon-red); font-size: 26px; text-shadow: 0 0 10px var(--neon-red); }
+        .logo { font-size: 26px; font-weight: 900; color: var(--pure-white); cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .logo-icon { color: var(--neon-red); font-size: 30px; text-shadow: 0 0 10px var(--neon-red); }
 
         .nav-links { display: flex; gap: 40px; list-style: none; }
         .nav-links li a {
             color: var(--text-dim); text-decoration: none; font-size: 15px; font-weight: 600;
             text-transform: uppercase; transition: 0.3s; position: relative;
         }
-        .nav-links li a:hover, .nav-links li a.active { color: var(--text-main); text-shadow: 0 0 10px var(--text-main); }
+        .nav-links li a:hover, .nav-links li a.active { color: var(--pure-white); text-shadow: 0 0 10px var(--pure-white); }
         .nav-links li a.active::after {
-            content: ' ✧'; color: var(--neon-red); font-size: 12px;
+            content: ' ✧'; /* Bintang kecil menempel di menu aktif */
+            color: var(--neon-red);
+            font-size: 12px;
         }
 
-        /* --- GENSHIN STYLE DIVIDER / LINE --- */
+        /* --- GENSHIN DIVIDER UPDATED (Bulan Sabit & Diamond) --- */
         .genshin-bar {
             display: flex; align-items: center; justify-content: center; width: 100%; margin: 30px 0; opacity: 0.8;
         }
         .genshin-bar::before, .genshin-bar::after {
             content: ''; flex: 1; height: 1.5px;
-            background: linear-gradient(90deg, transparent, var(--text-dim), transparent);
+            background: linear-gradient(90deg, transparent, var(--ash-white), transparent);
         }
+        /* Icon Diamond/Wajik di tengah bar */
         .genshin-diamond {
-            width: 14px; height: 14px; background: var(--neon-red);
-            transform: rotate(45deg); margin: 0 18px; border: 1.5px solid var(--text-main);
-            box-shadow: 0 0 15px var(--neon-red);
+            width: 12px; height: 12px; background: var(--neon-red);
+            transform: rotate(45deg); margin: 0 18px; border: 1px solid var(--pure-white);
+            box-shadow: 0 0 10px var(--neon-red);
         }
+
+        /* --- INTERACTIVE BUTTON (Futuristic Cut & Glowing) --- */
+        .btn-action {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: rgba(201, 20, 20, 0.1); color: var(--pure-white);
+            border: 1.5px solid var(--neon-red); padding: 15px 40px;
+            font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s Ease-in-out;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            position: relative; overflow: hidden;
+            z-index: 10;
+        }
+        .btn-action::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--neon-red); z-index: -1; transform: translateX(-100%); transition: 0.4s ease-in-out;
+        }
+        .btn-action:hover {
+            color: var(--void-black); box-shadow: 0 0 20px rgba(255, 26, 51, 0.7);
+            border-color: var(--pure-white);
+        }
+        .btn-action:hover::before { transform: translateX(0); }
+        .btn-action:active { transform: scale(0.95); }
 
         /* --- MAIN LAYOUT --- */
         .container {
@@ -144,7 +179,7 @@
             display: flex; flex-direction: column; gap: 50px;
         }
 
-        /* --- PANEL KACA (HEAVY GLASSMORPHISM) --- */
+        /* --- ✨ PANEL KACA (HEAVY GLASSMORPHISM) DENGAN KRISTALISASI ✨ --- */
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
@@ -153,50 +188,26 @@
             padding: 50px; position: relative; overflow: hidden;
             transition: 0.3s ease-in-out;
         }
-        .glass-panel:hover { border-color: rgba(255, 26, 51, 0.3); }
-        
-        /* Aksen Bordir Geometris samar khas Fatui di sudut panel */
-        .glass-panel::after {
+        /* Efek Kristalisasi Kaca (Pola wajik tipis menempel di kaca) */
+        .glass-panel::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(45deg, var(--bg-dark) 1px, transparent 1px),
-                linear-gradient(-45deg, var(--bg-dark) 1px, transparent 1px);
-            background-size: 25px 25px; opacity: 0.2; z-index: -1; border-radius: 20px;
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px), linear-gradient(-45deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 20px 20px; opacity: 0.5; z-index: -1; border-radius: 20px;
         }
+        .glass-panel:hover { border-color: rgba(255, 26, 51, 0.3); }
 
-        /* --- HERO SECTION (Split Layout khas Landing Page) --- */
+        /* --- HERO SECTION ( Split Layout Landing Page ) --- */
         .hero-section {
             display: flex; align-items: center; justify-content: space-between; min-height: 70vh; gap: 50px;
         }
 
-        .hero-text { flex: 1; z-index: 10; text-align: left; }
+        .hero-text { flex: 1.2; z-index: 10; text-align: left; }
         .hero-text h3 { color: var(--neon-red); font-size: 18px; letter-spacing: 5px; margin-bottom: 15px; text-shadow: 0 0 10px var(--neon-red); }
-        .hero-text h1 { font-size: 60px; line-height: 1.1; margin-bottom: 25px; text-shadow: 0 0 25px rgba(255,255,255,0.4); }
-        .hero-text p { color: var(--text-dim); font-size: 19px; max-width: 500px; margin-bottom: 45px; line-height: 1.7; }
-
-        /* --- INTERACTIVE BUTTONS (Futuristic Cut & Glow) --- */
-        .btn-interact {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: transparent; color: var(--text-main);
-            border: 1.5px solid var(--neon-red); padding: 15px 40px;
-            font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 3px;
-            text-transform: uppercase; cursor: pointer; transition: 0.3sEase-in-out;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-            position: relative; overflow: hidden; z-index: 10;
-        }
-        .btn-interact::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--neon-red); z-index: -1; transform: translateX(-100%); transition: 0.4s ease-in-out;
-        }
-        .btn-interact:hover {
-            color: var(--bg-void); box-shadow: 0 0 25px var(--neon-red);
-            text-shadow: none;
-        }
-        .btn-interact:hover::before { transform: translateX(0); }
-        .btn-interact:active { transform: scale(0.95); }
+        .hero-text h1 { font-size: 60px; line-height: 1.1; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .hero-text p { color: var(--text-dim); font-size: 18px; max-width: 550px; margin-bottom: 45px; line-height: 1.7; }
 
         .hero-image {
-            flex: 1; display: flex; justify-content: flex-end; position: relative;
+            flex: 0.8; display: flex; justify-content: center; position: relative;
         }
         /* Efek melayang perlahan (Floating) */
         .hero-image img {
@@ -206,12 +217,12 @@
         }
 
         @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-25px) rotate(1deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
 
-        /* --- CHARACTER INFO SECTION (Gambar Kiri, Detail Kanan) --- */
+        /* --- CHARACTER INFO SECTION (Gambar Kiri, Detail Glass Panel Kanan) --- */
         .info-section {
             display: flex; align-items: center; justify-content: space-between; gap: 60px; margin-top: 50px;
         }
@@ -226,6 +237,7 @@
 
         .info-details { flex: 1; }
         
+        /* Tipografi Genshin Wajib: Menggunakan ✦ */
         .info-details h2 { font-size: 44px; margin-bottom: 5px; color: var(--text-main); }
         .info-stars { color: var(--text-main); font-size: 20px; letter-spacing: 6px; margin-bottom: 25px; }
         .info-stars span { color: var(--neon-red); text-shadow: 0 0 10px var(--neon-red); }
@@ -240,20 +252,20 @@
         .attr-item h4 { font-size: 14px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; }
         .attr-item p { font-size: 19px; color: var(--text-main); font-weight: 600; font-family: 'Rajdhani', sans-serif; }
 
-        /* --- GALLERY SECTION (Tilt Cards) --- */
-        .gallery-grid {
+        /* --- ✨ MEDIA GALLERY SECTION (UPDATE: RETAK GELOMBANG ECHO TILT) ✨ --- */
+        .media-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 50px;
         }
         
         .media-box {
-            background: var(--bg-dark); border: 2px solid var(--glass-border);
+            background: rgba(10, 10, 10, 0.7); border: 2px solid var(--glass-border);
             border-radius: 12px; overflow: hidden; position: relative;
             transition: 0.4s ease-in-out; cursor: pointer;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
-        /* Efek Tilt (Miring) Tipis saat Hover */
+        /* Efek Miring Tipis (Tilt) saat Hover */
         .media-box:hover {
-            border-color: var(--neon-red); transform: translateY(-10px) rotateX(2deg) rotateY(2deg);
+            border-color: rgba(255, 26, 51, 0.6); transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
             box-shadow: 0 15px 40px rgba(201, 20, 20, 0.3);
         }
         
@@ -281,14 +293,14 @@
         footer { margin-top: 80px; padding: 60px 20px; text-align: center; background: rgba(0, 0, 0, 0.98); border-top: 2px solid var(--crimson-red); position: relative; }
         footer::before { content: ''; position: absolute; top: -1px; left: 50%; width: 250px; height: 3px; background: var(--neon-red); transform: translateX(-50%); box-shadow: 0 0 15px var(--neon-red); }
 
-        /* --- RESPONSIVE MOBILE (Update: Tampilan HP) --- */
+        /* RESPONSIVE MOBILE (Update: Tampilan HP) */
         @media (max-width: 990px) {
             header { padding: 10px 20px; position: fixed; top: 0; width: 100%; gap: 10px; flex-direction: column; }
             .logo { font-size: 20px; }
             .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
             .nav-links li a { font-size: 13px; letter-spacing: 1px; }
 
-            .container { padding: 140px 5% 60px 5%; margin: 0; gap: 30px; }
+            .container { padding: 130px 5% 60px 5%; margin: 0; gap: 30px; }
             .glass-panel { padding: 30px; border-radius: 15px; }
             
             .hero-section, .info-section { flex-direction: column; text-align: center; gap: 30px; }
@@ -310,7 +322,7 @@
 </head>
 <body>
 
-    <div class="spacebreak-overlay"></div>
+    <div class="spacebreak-bg"></div>
 
     <header>
         <div class="logo font-genshin" onclick="showAlert('Sistem Utama House of the Hearth diakses.')">
@@ -331,7 +343,7 @@
                 <h3 class="font-arle">✦ HARBINGER // HABINGER_04</h3>
                 <h1 class="font-genshin glitch" data-text="THE KNAVE">THE KNAVE</h1>
                 <p class="font-arle">
-                    "Dunia ini hanyalah sebuah panggung, traveler. Di bawah pengawasan 'Ayah', tidak ada ruang untuk kelemahan. Hadapi kebenaran, atau biarkan api 'Crimson Moon' menghanguskanmu."
+                    "Dunia ini hanyalah sebuah panggung, traveler. Di bawah pengawasan House of the Hearth, tidak ada ruang untuk kelemahan. Hadapi kebenaran, atau biarkan api 'Crimson Moon' menghanguskanmu."
                 </p>
                 <button class="btn-interact font-arle" onclick="showAlert('Inisiasi Protokol Intelijen... Memuat Data.')">
                     AKSES DATA PROFIL ✘
@@ -383,7 +395,7 @@
 
         <div class="genshin-bar" id="media">
             <div class="genshin-diamond"></div>
-        </div>
+    </div>
 
         <section class="media-grid">
             <div class="media-box">
@@ -393,8 +405,6 @@
             <div class="media-box">
                 <img src="https://dummyimage.com/400x300/101010/a0a0a0.png&text=Media+2" alt="Arlecchino Foto 2">
                 <div class="media-label font-arle">Intel Operasi ✘</div>
-            </div>
-            <div class=""media-label font-arle">Intel Operasi ✘</div>
             </div>
             <div class="media-box video-large">
                 <video controls>
@@ -416,3 +426,4 @@
 
 </body>
 </html>
+    
