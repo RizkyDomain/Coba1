@@ -3,309 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genshin Fan - Arlecchino Holographic UI</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Genshin Fan - The Knave Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- VARIABEL WARNA & KACA ARLECCHINO --- */
+        /* --- ARLECCHINO COLOR PALETTE --- */
         :root {
+            --bg-dark: #070707;
+            --bg-gray: #1a1a1a;
             --arle-red: #c91414;
-            --arle-dark: #3a0000;
-            --bg-deep: #050508;
-            --text-main: #f0f0f5;
-            --text-gold: #e5d1a7;
-            
-            /* Ultra Glass Properties */
-            --glass-panel: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01));
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+            --arle-dark-red: #7a0b0b;
+            --arle-white: #e8e8e8;
+            --text-dim: #a0a0a0;
+            --glass-bg: rgba(20, 20, 25, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
         }
 
-        /* --- RESET & BACKGROUND --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Jost', sans-serif;
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--arle-white);
             overflow-x: hidden;
-            /* Latar belakang Luar Angkasa / Spacebreak Merah */
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(201, 20, 20, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(58, 0, 0, 0.4) 0%, transparent 50%),
-                url('https://www.transparenttextures.com/patterns/stardust.png');
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 50% 50%, rgba(201, 20, 20, 0.1) 0%, var(--bg-dark) 60%);
             background-attachment: fixed;
         }
 
-        h1, h2, h3, .genshin-font { font-family: 'Cinzel', serif; letter-spacing: 2px; }
-
-        /* --- EFEK GLITCH & HOLOGRAM --- */
-        .hologram-scanline {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.02) 51%);
-            background-size: 100% 4px; z-index: 999; pointer-events: none; opacity: 0.5;
+        /* --- SPACEBREAK BACKGROUND EFFECT --- */
+        .spacebreak-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            background: 
+                linear-gradient(115deg, transparent 49.5%, rgba(201, 20, 20, 0.15) 49.8%, transparent 50.5%),
+                linear-gradient(240deg, transparent 49%, rgba(255, 255, 255, 0.05) 49.5%, transparent 50.5%);
+            background-size: 100vw 100vh;
+            opacity: 0.8;
+            animation: shatter 8s infinite alternate ease-in-out;
         }
 
-        /* --- NAVBAR --- */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 5%; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(5, 5, 8, 0.6); backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 100;
+        @keyframes shatter {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.02) translate(5px, -5px); }
+            100% { transform: scale(1) translate(-2px, 2px); }
         }
 
-        .logo { font-size: 26px; font-weight: 900; color: var(--text-gold); text-shadow: 0 0 10px rgba(229, 209, 167, 0.4); display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo span { color: var(--text-main); }
-        .logo::before { content: '✦'; color: var(--arle-red); font-size: 30px; }
+        /* --- GLITCH TEXT EFFECT --- */
+        .glitch {
+            position: relative; display: inline-block; font-weight: 900;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; pointer-events: none;
+        }
+        .glitch::before {
+            left: 2px; text-shadow: -2px 0 var(--arle-red);
+            clip: rect(24px, 550px, 90px, 0); animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px; text-shadow: -2px 0 rgba(255,255,255,0.5);
+            clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 44px, 0); }
+            20% { clip: rect(80px, 9999px, 90px, 0); }
+            40% { clip: rect(30px, 9999px, 40px, 0); }
+            60% { clip: rect(90px, 9999px, 100px, 0); }
+            80% { clip: rect(20px, 9999px, 50px, 0); }
+            100% { clip: rect(60px, 9999px, 70px, 0); }
+        }
 
-        .nav-links { list-style: none; display: flex; gap: 30px; }
-        .nav-links li a { color: var(--text-main); text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
-        .nav-links li a:hover { color: var(--arle-red); text-shadow: 0 0 10px var(--arle-red); }
+        h1, h2, h3 { font-family: 'Cinzel', serif; }
 
-        /* --- LAYOUT UTAMA (GRID) --- */
+        /* --- LAYOUT UTAMA --- */
         .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 40px; padding: 40px 5%; max-width: 1400px; margin: 0 auto;
+            grid-template-columns: 450px 1fr;
+            gap: 30px;
         }
 
-        /* --- KOTAK KACA (GLASSMORPHISM CARD) --- */
-        .glass-card {
-            background: var(--glass-panel);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        /* --- GLASS PANEL GLOBAL --- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px; box-shadow: var(--glass-glow);
-            padding: 30px; position: relative; overflow: hidden;
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Motif Kalung Belakang Panel */
+        .glass-panel::before {
+            content: ''; position: absolute; top: -50px; right: -50px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(201, 20, 20, 0.15) 0%, transparent 70%);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            z-index: 0; pointer-events: none;
+        }
+
+        /* --- PANEL KIRI (PROFIL UTAMA) --- */
+        .profile-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-top: 3px solid var(--arle-red);
+        }
+
+        .tab-nav {
+            display: flex; gap: 15px; width: 100%; margin-bottom: 30px; z-index: 1;
+        }
+        .tab-btn {
+            flex: 1; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--glass-border);
+            color: var(--text-dim); padding: 10px; border-radius: 8px;
+            font-family: 'Montserrat', sans-serif; font-weight: 600; cursor: pointer;
+            transition: 0.3s; font-size: 13px; text-transform: uppercase;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: rgba(201, 20, 20, 0.2); border-color: var(--arle-red); color: var(--arle-white);
+            box-shadow: inset 0 0 10px rgba(201, 20, 20, 0.5);
+        }
+
+        /* FOTO PROFIL TANPA ORNAMEN CINCIN - Bentuk Futuristik Tajam */
+        .avatar-frame {
+            position: relative; 
+            width: 240px; 
+            height: 240px; 
+            margin: 10px 0 30px 0; 
+            z-index: 1;
+            /* Efek glowing merah statis di belakang foto */
+            box-shadow: 0 0 30px rgba(201, 20, 20, 0.4);
+            /* Potongan sudut tajam (Futuristic Bevel) */
+            clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+            border: 2px solid var(--arle-red);
+            background: var(--bg-dark);
+        }
+
+        .avatar-img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            filter: contrast(110%) grayscale(20%);
+            transition: 0.5s;
         }
         
-        /* Ornamen Garis & Wajik di dalam Card */
-        .glass-card::before {
-            content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 10px; pointer-events: none;
+        .avatar-frame:hover .avatar-img {
+            filter: contrast(100%) grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* Detail Teks Profil */
+        .profile-name { font-size: 32px; letter-spacing: 3px; z-index: 1; }
+        .profile-title { font-size: 14px; color: var(--arle-red); font-weight: 600; letter-spacing: 4px; margin-bottom: 20px; z-index: 1; }
+        .profile-desc {
+            font-size: 14px; color: var(--text-dim); line-height: 1.6;
+            background: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px;
+            border-left: 3px solid var(--arle-red); z-index: 1;
+            text-align: left;
+        }
+
+        /* --- PANEL KANAN (GALLERY / MISSION BRIEFING) --- */
+        .gallery-panel {
+            display: flex; flex-direction: column; gap: 20px;
         }
 
         .section-title {
-            text-align: center; font-size: 22px; color: var(--text-gold);
-            margin-bottom: 25px; display: flex; align-items: center; justify-content: center; gap: 15px;
+            display: flex; align-items: center; gap: 10px; font-size: 22px; margin-bottom: 10px;
         }
-        .section-title::before, .section-title::after {
-            content: ''; height: 1px; width: 40px; background: var(--text-gold);
-        }
-
-        /* --- BAGIAN KIRI: HERO & CHARACTER ORBIT --- */
-        .hero-section { display: flex; flex-direction: column; align-items: center; text-align: center; }
         
-        .hero-section h1 { font-size: 40px; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
-
-        .download-btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 40px; }
-        
-        .btn-hologram {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--arle-red);
-            color: var(--text-main); padding: 12px 25px; font-family: 'Jost', sans-serif;
-            font-size: 14px; font-weight: 600; border-radius: 30px; cursor: pointer;
-            transition: 0.3s; display: flex; align-items: center; gap: 10px;
-            box-shadow: inset 0 0 10px rgba(201, 20, 20, 0.2);
+        /* Logo Kalung di Judul */
+        .necklace-mini {
+            width: 16px; height: 22px; background: var(--arle-red);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            display: flex; justify-content: center; align-items: center;
         }
-        .btn-hologram:hover { background: var(--arle-red); box-shadow: 0 0 20px var(--arle-red); transform: translateY(-3px); }
+        .necklace-mini::after { content: '+'; color: #000; font-size: 14px; font-weight: bold; }
 
-        /* LINGKARAN KARAKTER (Orbit UI ala Genshin) */
-        .character-orbit {
-            position: relative; width: 450px; height: 450px;
-            display: flex; justify-content: center; align-items: center; margin: 20px 0;
+        /* Grid Galeri (Foto & Video) */
+        .gallery-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
         }
 
-        /* Lingkaran Garis Putus-putus Luar */
-        .orbit-ring {
-            position: absolute; width: 100%; height: 100%;
-            border: 2px dashed rgba(255, 255, 255, 0.2); border-radius: 50%;
-            animation: spin 60s linear infinite; pointer-events: none;
+        .media-card {
+            background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border);
+            border-radius: 12px; overflow: hidden; position: relative;
+            transition: 0.3s;
+        }
+        .media-card:hover {
+            border-color: rgba(201, 20, 20, 0.6); transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(201, 20, 20, 0.2);
         }
 
-        /* Lingkaran Utama (Arlecchino) */
-        .main-avatar {
-            width: 300px; height: 300px; border-radius: 50%;
-            border: 4px solid var(--arle-red); box-shadow: 0 0 30px rgba(201, 20, 20, 0.5);
-            background: #000; overflow: hidden; position: relative; z-index: 2;
+        .media-content {
+            width: 100%; height: 180px; position: relative;
+            border-bottom: 1px solid var(--glass-border);
         }
-        .main-avatar img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .main-avatar:hover img { transform: scale(1.1); filter: contrast(120%); }
-
-        /* Ikon Karakter Kecil di Sekelilingnya */
-        .mini-avatar {
-            position: absolute; width: 70px; height: 70px; border-radius: 50%;
-            border: 2px solid var(--text-gold); background: #111; overflow: hidden;
-            cursor: pointer; transition: 0.3s; z-index: 3; box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        .media-content img, .media-content video {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(30%); transition: 0.4s;
         }
-        .mini-avatar img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(50%); transition: 0.3s; }
-        .mini-avatar:hover { transform: scale(1.2); border-color: var(--arle-red); }
-        .mini-avatar:hover img { filter: grayscale(0%); }
-
-        /* Posisi Manual Mini Avatar (Matematika Lingkaran Sederhana) */
-        .pos-1 { top: 5%; left: 15%; }
-        .pos-2 { top: 15%; right: 5%; }
-        .pos-3 { bottom: 10%; left: 10%; }
-        .pos-4 { bottom: 5%; right: 15%; }
-
-        /* --- BAGIAN KANAN: SIDE PANELS (ARSIP & BERITA) --- */
-        .side-panels { display: flex; flex-direction: column; gap: 30px; }
-
-        /* Grid Arsip Harbinger */
-        .archive-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-        }
-        .archive-item {
-            background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.3s;
-            position: relative;
-        }
-        .archive-item img { width: 100%; height: 120px; object-fit: cover; opacity: 0.7; transition: 0.3s; }
-        .archive-item:hover { border-color: var(--arle-red); box-shadow: 0 0 15px rgba(201, 20, 20, 0.4); }
-        .archive-item:hover img { opacity: 1; transform: scale(1.05); }
-        .item-label {
-            position: absolute; bottom: 0; width: 100%; background: rgba(201, 20, 20, 0.8);
-            text-align: center; font-size: 12px; padding: 5px; font-family: 'Cinzel', serif; font-weight: 700;
+        .media-card:hover .media-content img, .media-card:hover .media-content video {
+            filter: grayscale(0%);
         }
 
-        /* Grid Berita / Teks */
-        .news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .news-box {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border);
-            padding: 15px; border-radius: 8px; font-size: 13px; color: #ccc;
-            transition: 0.3s; cursor: pointer; text-align: center;
-            display: flex; align-items: center; justify-content: center; min-height: 80px;
+        /* Label Khusus di sudut media */
+        .badge {
+            position: absolute; top: 10px; left: 10px;
+            background: rgba(10, 10, 10, 0.85); border: 1px solid var(--arle-red);
+            color: var(--arle-white); font-size: 10px; font-weight: 800;
+            padding: 4px 10px; border-radius: 4px; letter-spacing: 1px;
+            backdrop-filter: blur(5px);
         }
-        .news-box:hover { background: rgba(201, 20, 20, 0.1); border-color: var(--arle-red); color: #fff; }
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .media-info { padding: 15px; }
+        .media-info h4 { font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--arle-white); margin-bottom: 5px; text-transform: uppercase; }
+        .media-info p { font-size: 12px; color: var(--text-dim); }
 
-        /* --- RESPONSIVE / TAMPILAN HP --- */
-        @media (max-width: 1024px) {
-            .container { grid-template-columns: 1fr; padding: 20px; }
-            .character-orbit { width: 350px; height: 350px; }
-            .main-avatar { width: 220px; height: 220px; }
-            .mini-avatar { width: 60px; height: 60px; }
-            .hero-section h1 { font-size: 30px; }
-        }
-        @media (max-width: 480px) {
-            nav { flex-direction: column; gap: 15px; }
-            .character-orbit { width: 300px; height: 300px; }
-            .main-avatar { width: 180px; height: 180px; }
-            .mini-avatar { width: 50px; height: 50px; }
-            .pos-1 { top: 0; left: 10%; } .pos-2 { top: 10%; right: 0; }
-            .pos-3 { bottom: 0; left: 10%; } .pos-4 { bottom: 0; right: 10%; }
+        /* Video Spesifik mengambil 2 kolom jika di paling bawah */
+        .video-card { grid-column: span 2; }
+        .video-card .media-content { height: 280px; }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; padding: 15px; margin: 20px auto; }
+            .profile-panel { padding: 20px; }
+            .avatar-frame { width: 200px; height: 200px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .video-card { grid-column: span 1; }
+            .video-card .media-content { height: 200px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hologram-scanline"></div>
+    <div class="spacebreak-bg"></div>
 
-    <nav>
-        <div class="logo" onclick="showAlert('Sistem Utama House of the Hearth diakses.')">
-            GENSHIN <span>FAN</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#">Beranda</a></li>
-            <li><a href="#">Intel</a></li>
-            <li><a href="#">Karakter</a></li>
-        </ul>
-    </nav>
-
-    <main class="container">
+    <div class="container">
         
-        <section class="hero-section glass-card">
-            <h1 class="genshin-font">KUMPULAN PETUALANG TEYVAT TERBESAR</h1>
-            
-            <div class="download-btn-group">
-                <button class="btn-hologram" onclick="showAlert('Mengunduh klien Windows...')">🖥️ Windows</button>
-                <button class="btn-hologram" onclick="showAlert('Membuka App Store...')">🍎 App Store</button>
-                <button class="btn-hologram" onclick="showAlert('Membuka Google Play...')">🤖 Google Play</button>
-                <button class="btn-hologram" onclick="showAlert('Menghubungkan ke PSN...')">🎮 PS5 / PS4</button>
+        <aside class="profile-panel glass-panel">
+            <div class="tab-nav">
+                <button class="tab-btn active" onclick="showAlert('Memuat Ikhtisar Agen...')">OVERVIEW</button>
+                <button class="tab-btn" onclick="showAlert('Memuat Statistik Tempur...')">COMBAT</button>
             </div>
 
-            <h2 class="genshin-font" style="margin-top: 20px; color: var(--text-gold);">ARLECCHINO</h2>
-
-            <div class="character-orbit">
-                <div class="orbit-ring"></div>
-                
-                <div class="main-avatar" onclick="showAlert('Mengakses data The Knave...')">
-                    <img src="https://dummyimage.com/400x400/1a1a1a/c91414.png&text=Foto+Arlecchino" alt="Arlecchino">
-                </div>
-
-                <div class="mini-avatar pos-1" onclick="showAlert('Data Tartaglia diakses')">
-                    <img src="https://dummyimage.com/100x100/333/fff.png&text=Childe" alt="Childe">
-                </div>
-                <div class="mini-avatar pos-2" onclick="showAlert('Data La Signora diakses')">
-                    <img src="https://dummyimage.com/100x100/333/fff.png&text=Signora" alt="Signora">
-                </div>
-                <div class="mini-avatar pos-3" onclick="showAlert('Data Columbina diakses')">
-                    <img src="https://dummyimage.com/100x100/333/fff.png&text=Columbina" alt="Columbina">
-                </div>
-                <div class="mini-avatar pos-4" onclick="showAlert('Data Dottore diakses')">
-                    <img src="https://dummyimage.com/100x100/333/fff.png&text=Dottore" alt="Dottore">
-                </div>
+            <div class="avatar-frame">
+                <img src="https://dummyimage.com/400x400/1a1a1a/c91414.png&text=Foto+Arlecchino" alt="Arlecchino Profil" class="avatar-img">
             </div>
 
-            <p style="color: #bbb; font-size: 14px; max-width: 400px; margin-top: 20px;">
-                Komunitas Petualang Terbuka Berbasis-Strategi dan Lore yang Terinspirasi oleh HoYoverse, di bawah Pengawasan "Father".
-            </p>
-        </section>
+            <h1 class="profile-name glitch" data-text="ARLECCHINO">ARLECCHINO</h1>
+            <h3 class="profile-title">THE KNAVE</h3>
 
-        <aside class="side-panels">
-            
-            <div class="glass-card">
-                <h2 class="section-title">ARSIP HARBINGER</h2>
-                <div class="archive-grid">
-                    <div class="archive-item" onclick="showAlert('Membuka file Intel 01')">
-                        <img src="https://dummyimage.com/200x200/222/c91414.png&text=Intel+1" alt="Intel 1">
-                        <div class="item-label">TARTAGLIA</div>
-                    </div>
-                    <div class="archive-item" onclick="showAlert('Membuka file Intel 02')">
-                        <img src="https://dummyimage.com/200x200/222/c91414.png&text=Intel+2" alt="Intel 2">
-                        <div class="item-label">IL DOTTORE</div>
-                    </div>
-                    <div class="archive-item" onclick="showAlert('Membuka file Intel 03')">
-                        <img src="https://dummyimage.com/200x200/222/c91414.png&text=Intel+3" alt="Intel 3">
-                        <div class="item-label">COLUMBINA</div>
-                    </div>
-                    <div class="archive-item" onclick="showAlert('Membuka file Intel 04')">
-                        <img src="https://dummyimage.com/200x200/222/c91414.png&text=Intel+4" alt="Intel 4">
-                        <div class="item-label">CAPITANO</div>
-                    </div>
-                </div>
+            <div class="profile-desc">
+                Direktur House of the Hearth. Sebuah bayangan yang bergerak di balik tata krama yang elegan. Jangan biarkan senyumnya menipu matamu, karena di baliknya terdapat eksekutor paling mematikan.
             </div>
-
-            <div class="glass-card">
-                <h2 class="section-title">BERITA TERBARU & MISI</h2>
-                <div class="news-grid">
-                    <div class="news-box" onclick="showAlert('Membaca detail misi Fontaine...')">Rencana Penyerangan Baru: Fontaine</div>
-                    <div class="news-box" onclick="showAlert('Membaca detail operasi Gnosis...')">Arsip Misi: Mengambil Gnosis</div>
-                    <div class="news-box" onclick="showAlert('Melihat jadwal maintenance...')">Pembaruan Sistem House of the Hearth</div>
-                    <div class="news-box" onclick="showAlert('Melihat panduan build Arlecchino...')">Detail Karakter: Arlecchino Build</div>
-                </div>
-            </div>
-
-            <div class="glass-card" style="text-align: center;">
-                <h2 class="section-title">REKAMAN OPERASI</h2>
-                <div style="border-radius: 10px; overflow: hidden; border: 1px solid var(--glass-border);">
-                    <video width="100%" controls style="display: block;">
-                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
-
         </aside>
 
-    </main>
+        <main class="gallery-panel">
+            
+            <div class="glass-panel" style="padding: 25px 30px;">
+                <h2 class="section-title">
+                    <span class="necklace-mini"></span> ARSIP VISUAL
+                </h2>
+                <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 25px;">Dokumentasi lapangan berklasifikasi tinggi. Hanya untuk mata House of the Hearth.</p>
+
+                <div class="gallery-grid">
+                    
+                    <div class="media-card">
+                        <div class="media-content">
+                            <span class="badge">IMAGE.LOG</span>
+                            <img src="image.png&text=Concept+Art" alt="Concept Art">
+                        </div>
+                        <div class="media-info">
+                            <h4>Concept Art Form</h4>
+                            <p>Desain visual dan struktur seragam tempur.</p>
+                        </div>
+                    </div>
+
+                    <div class="media-card">
+                        <div class="media-content">
+                            <span class="badge">IMAGE.LOG</span>
+                            <img src="https://dummyimage.com/600x400/1a1a1a/e8e8e8.png&text=In-Game+Shot" alt="In-Game">
+                        </div>
+                        <div class="media-info">
+                            <h4>Operasi Lapangan</h4>
+                            <p>Tangkapan layar aktivitas di wilayah Fontaine.</p>
+                        </div>
+                    </div>
+
+                    <div class="media-card video-card">
+                        <div class="media-content">
+                            <span class="badge" style="background: var(--arle-dark-red);">COMBAT.VID</span>
+                            <video controls>
+                                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                                Browser tidak mendukung tag video.
+                            </video>
+                        </div>
+                        <div class="media-info">
+                            <h4>Eksekusi "The Knave"</h4>
+                            <p>Rekaman demonstrasi kemampuan tempur Crimson Moon's Semblance. Target dinetralisir dalam hitungan detik.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
 
     <script>
         function showAlert(pesan) {
-            // Suara klik holografik bisa ditambahkan di sini
-            alert("✦ SYSTEM PROTOCOL: \n" + pesan);
+            alert("|| ERROR.SPACE_FRACTURE ||\n\n" + pesan);
         }
     </script>
 
 </body>
     </html>
+    
