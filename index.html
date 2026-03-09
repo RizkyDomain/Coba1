@@ -9,11 +9,11 @@
     <style>
         /* --- VARIABEL WARNA GENSHIN UI --- */
         :root {
-            --bg-color: #1a2235; /* Biru gelap khas UI Genshin */
-            --gold-accent: #d3bc8e; /* Emas Genshin */
-            --gold-hover: #e5d1a7;
+            --bg-color: #1a2235; 
+            --gold-accent: #d3bc8e; 
+            --gold-hover: #ece5ce;
             --text-main: #f5f0e6;
-            --box-bg: rgba(25, 33, 50, 0.8);
+            --box-bg: rgba(25, 33, 50, 0.85);
         }
 
         /* --- RESET & BASIC --- */
@@ -27,7 +27,6 @@
             font-family: 'Nunito', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            /* Latar belakang bintang/malam (Placeholder URL) */
             background-image: radial-gradient(circle at top right, #2c3a58, #1a2235);
             line-height: 1.6;
         }
@@ -48,12 +47,13 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .logo {
             font-size: 28px;
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(211, 188, 142, 0.5);
+            text-shadow: 0 0 10px rgba(211, 188, 142, 0.6);
             cursor: pointer;
         }
 
@@ -71,18 +71,21 @@
             transition: 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .nav-links li a:hover {
-            color: var(--gold-accent);
-            text-shadow: 0 0 8px var(--gold-accent);
+            color: var(--gold-hover);
+            text-shadow: 0 0 10px var(--gold-accent);
         }
 
         /* --- HERO SECTION --- */
         .hero {
             text-align: center;
-            padding: 100px 20px;
-            background: url('https://dummyimage.com/1920x600/1a2235/d3bc8e&text=Ganti+dengan+Foto+Pemandangan+Mondstadt/Liyue') no-repeat center center/cover;
+            padding: 120px 20px;
+            background: url('https://dummyimage.com/1920x600/1a2235/d3bc8e&text=Pemandangan+Teyvat') no-repeat center center/cover;
             border-bottom: 2px solid var(--gold-accent);
             position: relative;
         }
@@ -91,7 +94,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(26, 34, 53, 0.7); /* Overlay gelap agar teks terbaca */
+            background: linear-gradient(to bottom, rgba(26, 34, 53, 0.4), #1a2235);
         }
 
         .hero-content {
@@ -100,102 +103,165 @@
         }
 
         .hero h1 {
-            font-size: 50px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-size: 55px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(211, 188, 142, 0.4);
         }
 
         .hero p {
             font-size: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            color: #ece5ce;
         }
 
-        /* --- BUTTONS --- */
+        /* --- BUTTONS GENSHIN STYLE --- */
         .btn {
-            background-color: transparent;
+            background-color: rgba(26, 34, 53, 0.6);
             color: var(--gold-accent);
             border: 2px solid var(--gold-accent);
-            padding: 12px 30px;
+            padding: 12px 35px;
             font-family: 'Cinzel', serif;
             font-size: 18px;
             font-weight: bold;
-            border-radius: 30px;
+            border-radius: 40px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(211, 188, 142, 0.2);
+            box-shadow: 0 0 15px rgba(211, 188, 142, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn:hover {
             background-color: var(--gold-accent);
             color: var(--bg-color);
-            box-shadow: 0 0 20px rgba(211, 188, 142, 0.8);
-            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(211, 188, 142, 0.8);
+            transform: translateY(-3px);
+        }
+
+        /* --- GENSHIN DIVIDER & ORNAMENTS --- */
+        .genshin-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-accent);
+            font-size: 24px;
+            margin: 40px 0;
+        }
+
+        .genshin-divider::before,
+        .genshin-divider::after {
+            content: '';
+            height: 2px;
+            width: 150px;
+            background: linear-gradient(to right, transparent, var(--gold-accent), transparent);
+            margin: 0 20px;
         }
 
         /* --- CONTENT SECTION --- */
         .section {
             padding: 60px 50px;
             text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section h2 {
-            font-size: 36px;
+            font-size: 38px;
             margin-bottom: 20px;
-            display: inline-block;
-            border-bottom: 2px solid var(--gold-accent);
-            padding-bottom: 10px;
+            letter-spacing: 2px;
         }
 
         .section p {
             max-width: 800px;
             margin: 0 auto 30px auto;
             font-size: 18px;
+            color: #d8d8d8;
         }
 
-        /* --- MEDIA GALLERY (FOTO & VIDEO) --- */
+        /* --- MEDIA GALLERY DENGAN BORDER KHAS GENSHIN --- */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            gap: 30px;
+            margin-top: 40px;
         }
 
         .media-box {
             background-color: var(--box-bg);
             border: 1px solid var(--gold-accent);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s;
+            padding: 10px;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        /* Aksen sudut (Corner Ornaments) */
+        .media-box::before, .media-box::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--gold-hover);
+            transition: 0.3s;
+        }
+        .media-box::before {
+            top: -3px; left: -3px;
+            border-bottom: none; border-right: none;
+        }
+        .media-box::after {
+            bottom: -3px; right: -3px;
+            border-top: none; border-left: none;
         }
 
         .media-box:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(211, 188, 142, 0.3);
+            box-shadow: 0 10px 30px rgba(211, 188, 142, 0.2);
+            border-color: var(--gold-hover);
         }
 
-        .media-box img, .media-box video {
+        .media-box:hover::before, .media-box:hover::after {
+            width: 25px;
+            height: 25px;
+        }
+
+        .media-inner {
+            overflow: hidden;
+            border: 1px solid rgba(211, 188, 142, 0.3);
+        }
+
+        .media-inner img, .media-inner video {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
             display: block;
+            transition: transform 0.5s;
+        }
+
+        .media-box:hover .media-inner img {
+            transform: scale(1.05);
         }
 
         .media-caption {
-            padding: 15px;
+            padding: 15px 0 5px 0;
             font-family: 'Cinzel', serif;
-            color: var(--gold-hover);
+            color: var(--gold-accent);
+            font-size: 18px;
+            letter-spacing: 1px;
         }
 
         /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 30px;
-            background: rgba(26, 34, 53, 0.95);
+            padding: 40px 20px;
+            background: rgba(18, 24, 38, 0.95);
             border-top: 2px solid var(--gold-accent);
-            margin-top: 40px;
+            margin-top: 60px;
+            position: relative;
         }
 
         /* --- RESPONSIVE / TAMPILAN HP --- */
@@ -210,69 +276,84 @@
                 justify-content: center;
                 gap: 15px;
             }
-            .hero h1 { font-size: 36px; }
+            .hero h1 { font-size: 40px; }
             .section { padding: 40px 20px; }
+            .genshin-divider::before, .genshin-divider::after {
+                width: 80px;
+            }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo" onclick="showAlert('Menu utama diakses!')">✨ Genshin Fan</div>
+        <div class="logo" onclick="showAlert('Menu utama diakses!')">✧ Genshin Fan ✧</div>
         <ul class="nav-links">
-            <li><a href="#beranda">Beranda</a></li>
-            <li><a href="#cerita">Cerita</a></li>
-            <li><a href="#galeri">Galeri</a></li>
-            <li><a href="#" onclick="showAlert('Membuka Peta Interaktif Teyvat...')">Peta Teyvat</a></li>
+            <li><a href="#beranda">✦ Beranda</a></li>
+            <li><a href="#cerita">✦ Cerita</a></li>
+            <li><a href="#galeri">✦ Galeri</a></li>
+            <li><a href="#" onclick="showAlert('Membuka Peta Interaktif Teyvat...')">✦ Peta Teyvat</a></li>
         </ul>
     </nav>
 
     <header class="hero" id="beranda">
         <div class="hero-content">
             <h1>Selamat Datang Traveler!</h1>
-            <p>Ad astra abyssosque! Selamat datang di Genshin Fan, tempat berkumpulnya para petualang dari ke-tujuh region Teyvat. Mulai perjalanan epikmu sekarang.</p>
-            <button class="btn" onclick="showAlert('Memulai Wish / Gacha... Semoga beruntung mendapatkan karakter Bintang 5!')">Mulai Petualangan</button>
+            <p>Ad astra abyssosque! Tempat berkumpulnya para petualang dari ke-tujuh region Teyvat. Mulai perjalanan epikmu sekarang.</p>
+            <button class="btn" onclick="showAlert('Memulai Wish / Gacha... Semoga dapat Bintang 5!')">
+                ✦ Mulai Petualangan ✦
+            </button>
         </div>
     </header>
 
+    <div class="genshin-divider">✦</div>
+
     <section class="section" id="cerita">
-        <h2>Kisah di Balik Angin & Batu</h2>
+        <h2>✧ Kisah di Balik Angin & Batu ✧</h2>
         <p>Dari padang rumput Mondstadt yang dibelai angin bebas, hingga pelabuhan Liyue yang kokoh berdiri di atas kontrak dan batu. Komunitas Genshin Fan hadir untuk mencatat setiap langkah kakimu. Bagikan build karakter favoritmu, teori konspirasi tentang Celestia, atau sekadar menikmati indahnya pemandangan sambil mendengar alunan musik dari Lyre.</p>
         <button class="btn" onclick="showAlert('Menuju halaman Lore & Cerita Teyvat...')">Baca Lore Lengkap</button>
     </section>
 
+    <div class="genshin-divider">✦</div>
+
     <section class="section" id="galeri">
-        <h2>Galeri Kenangan</h2>
-        <p>Momen-momen indah yang tertangkap kamera Kamera-Kurai.</p>
+        <h2>✧ Galeri Kenangan ✧</h2>
+        <p>Momen-momen indah yang tertangkap oleh Kamera-Kurai milik para Traveler.</p>
         
         <div class="gallery">
             <div class="media-box">
-                <img src="https://dummyimage.com/600x400/2c3a58/d3bc8e&text=Insert+Foto+Karakter+Genshin" alt="Karakter Genshin">
+                <div class="media-inner">
+                    <img src="https://dummyimage.com/600x400/2c3a58/d3bc8e&text=Foto+Karakter" alt="Karakter Genshin">
+                </div>
                 <div class="media-caption">Karakter Favorit</div>
             </div>
 
             <div class="media-box">
-                <video controls>
-                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                    Browser Anda tidak mendukung tag video.
-                </video>
+                <div class="media-inner">
+                    <video controls>
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung tag video.
+                    </video>
+                </div>
                 <div class="media-caption">Gameplay Spiral Abyss</div>
             </div>
 
             <div class="media-box">
-                <img src="https://dummyimage.com/600x400/2c3a58/d3bc8e&text=Insert+Pemandangan+Inazuma" alt="Pemandangan Teyvat">
-                <div class="media-caption">Pemandangan Inazuma</div>
+                <div class="media-inner">
+                    <img src="https://dummyimage.com/600x400/2c3a58/d3bc8e&text=Pemandangan" alt="Pemandangan Teyvat">
+                </div>
+                <div class="media-caption">Eksplorasi Teyvat</div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p style="color: var(--gold-accent); font-family: 'Cinzel', serif;">© 2026 Genshin Fan. Dibuat oleh Traveler, untuk Traveler.</p>
-        <p style="font-size: 12px; margin-top: 10px; color: #888;">Bukan produk resmi HoYoverse.</p>
+        <p style="color: var(--gold-accent); font-family: 'Cinzel', serif; font-size: 18px;">✧ © 2026 Genshin Fan ✧</p>
+        <p style="color: var(--text-main); margin-top: 5px;">Dibuat oleh Traveler, untuk Traveler.</p>
+        <p style="font-size: 12px; margin-top: 15px; color: #666;">Bukan produk resmi HoYoverse.</p>
     </footer>
 
     <script>
-        // Fungsi untuk memberikan alert saat tombol ditekan
         function showAlert(pesan) {
             alert("✨ Paimon Berkata: " + pesan);
         }
