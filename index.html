@@ -3,244 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genshin Fan - Protokol The Damselette</title>
+    <title>Genshin Fan - Dewi Bulan Columbina</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- ✨ PALET WARNA COLUMBINA (DOMINAN PUTIH, KRISTAL, BIRU, MAGENTA) ✨ --- */
+        /* --- ✨ PALET WARNA KRISTAL DEWI BULAN ✨ --- */
         :root {
-            --pure-white: #ffffff; /* Putih absolut */
-            --crystal-base: #f0f4f8; /* Putih kebiruan (base kristal) */
-            --night-blue: #0b1229; /* Biru malam pekat untuk Teks utama */
-            --text-dim: #4b5563; /* Abu-abu kebiruan untuk deskripsi */
+            --midnight-blue: #020617; /* Malam pekat agar kristal menyala */
+            --night-sky: #0f172a; 
+            --pure-white: #ffffff; /* Putih suci */
+            --moon-cyan: #00e5ff; /* Biru es/embun bercahaya */
+            --magenta-glow: #e024b5; /* Magenta khas Columbina */
+            --silver-text: #cbd5e1; /* Abu-abu terang untuk teks */
             
-            --crystal-blue: #60a5fa; /* Biru kristal cerah */
-            --magenta-accent: #d942a6; /* Magenta suci khas pita Columbina */
-            
-            /* Kaca Kristal Putih (Light Glassmorphism) */
-            --glass-bg: rgba(255, 255, 255, 0.45); 
-            --glass-border: rgba(255, 255, 255, 0.8); /* Kilap putih solid */
-            --glass-shadow: rgba(31, 38, 135, 0.1); /* Bayangan biru lembut */
+            /* TRUE CRYSTAL GLASSMORPHISM */
+            --glass-bg: rgba(255, 255, 255, 0.05); /* Sangat transparan */
+            --glass-border-highlight: rgba(255, 255, 255, 0.7); /* Kilap tajam kaca */
+            --glass-border-dim: rgba(255, 255, 255, 0.1);
         }
 
         /* --- BASIC SETUP --- */
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
-        ::-moz-selection { background: var(--magenta-accent); color: var(--pure-white); }
-        ::selection { background: var(--magenta-accent); color: var(--pure-white); }
+        ::-moz-selection { background: var(--pure-white); color: var(--midnight-blue); }
+        ::selection { background: var(--pure-white); color: var(--midnight-blue); }
         
         body {
             font-family: 'Rajdhani', sans-serif;
-            background-color: var(--crystal-base);
-            color: var(--night-blue);
+            background-color: var(--midnight-blue);
+            color: var(--pure-white);
             overflow-x: hidden;
             min-height: 100vh;
-            /* Latar Belakang Dominan Putih Kristal */
-            background-image: 
-                radial-gradient(circle at top right, #ffffff 0%, var(--crystal-base) 70%),
-                linear-gradient(to bottom, rgba(96, 165, 250, 0.05), rgba(217, 66, 166, 0.05));
-            background-attachment: fixed;
         }
 
-        /* --- ✨ EFEK BULAN SUCI & PENDARAN MAGENTA/BIRU ✨ --- */
-        /* Bulan Raksasa Putih Bersinar */
-        .crystal-moon {
-            position: fixed; top: 30%; left: 70%; transform: translate(-50%, -50%);
-            width: 900px; height: 900px; border-radius: 50%; z-index: -5;
-            background: radial-gradient(circle, #ffffff 20%, rgba(255,255,255,0.8) 50%, transparent 70%);
-            box-shadow: 0 0 150px rgba(255, 255, 255, 1), 0 0 80px rgba(96, 165, 250, 0.3);
-            animation: breatheMoon 8s infinite alternate ease-in-out;
+        /* --- ✨ LATAR BELAKANG: MALAM PEKAT & AURORA KRISTAL ✨ --- */
+        .sky-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -6;
+            background: radial-gradient(circle at top center, var(--night-sky) 0%, var(--midnight-blue) 80%);
         }
 
-        /* Kilauan Aurora (Biru & Magenta) */
-        .aurora-sweep {
-            position: fixed; bottom: -10%; left: -10%; width: 120vw; height: 70vh; z-index: -4;
-            background: linear-gradient(135deg, transparent, rgba(217, 66, 166, 0.15), rgba(96, 165, 250, 0.15), transparent);
-            transform: rotate(-20deg); filter: blur(40px);
-            animation: auroraShift 12s infinite alternate ease-in-out;
+        /* Bulan Suci (Moon Goddess) */
+        .divine-moon {
+            position: fixed; top: 20%; left: 50%; transform: translateX(-50%);
+            width: 700px; height: 700px; border-radius: 50%; z-index: -5;
+            background: radial-gradient(circle, var(--pure-white) 10%, rgba(0, 229, 255, 0.4) 40%, transparent 70%);
+            box-shadow: 0 0 150px rgba(255, 255, 255, 0.8), 0 0 250px rgba(0, 229, 255, 0.3);
+            animation: moonBreathe 6s infinite alternate ease-in-out;
             pointer-events: none;
         }
 
-        @keyframes breatheMoon {
-            0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; }
-            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; filter: brightness(1.2); }
-        }
-        @keyframes auroraShift {
-            0% { transform: rotate(-20deg) translateY(0); opacity: 0.5; }
-            100% { transform: rotate(-10deg) translateY(-50px); opacity: 1; }
+        /* Pendaran Magenta Halus di Bawah */
+        .magenta-aurora {
+            position: fixed; bottom: -20%; left: 0%; width: 100vw; height: 50vh; z-index: -4;
+            background: radial-gradient(ellipse at bottom, rgba(224, 36, 181, 0.15) 0%, transparent 60%);
+            filter: blur(40px); pointer-events: none;
         }
 
-        /* --- ✨ PARTIKEL BULU MALAIKAT (FEATHERS) ✨ --- */
-        #feathers-container {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -3; pointer-events: none; overflow: hidden;
-        }
-        .feather {
-            position: absolute; top: -20px;
-            background: var(--pure-white);
-            width: 4px; height: 18px; border-radius: 50%;
-            /* Bulu memancarkan bayangan biru es dan magenta lembut */
-            box-shadow: 0 0 12px var(--crystal-blue), 0 0 6px var(--magenta-accent);
-            opacity: 0; filter: blur(1px);
-            animation: fallDown linear infinite;
-        }
-        @keyframes fallDown {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-            15% { opacity: 0.9; }
-            85% { opacity: 0.6; }
-            100% { transform: translateY(100vh) translateX(60px) rotate(45deg); opacity: 0; }
+        @keyframes moonBreathe {
+            0% { transform: translateX(-50%) scale(0.95); opacity: 0.9; }
+            100% { transform: translateX(-50%) scale(1.05); opacity: 1; }
         }
 
-        /* --- ✨ TYPOGRAPHY GENSHIN & ✦ BINTANG ✨ --- */
-        h1, h2, h3, .font-genshin {
-            font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 2px;
+        /* --- ✨ PARTIKEL EMBUN / CAHAYA SUCI ✨ --- */
+        #dew-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -3; pointer-events: none; overflow: hidden; }
+        .dewdrop {
+            position: absolute; top: -10px; background: var(--pure-white); border-radius: 50%;
+            box-shadow: 0 0 10px var(--moon-cyan), 0 0 5px var(--pure-white);
+            animation: fallDew linear infinite; opacity: 0;
         }
-        .genshin-star { color: var(--magenta-accent); text-shadow: 0 0 10px rgba(217, 66, 166, 0.4); margin-right: 8px; }
+        @keyframes fallDew {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.4; }
+            100% { transform: translateY(100vh) scale(1.5); opacity: 0; }
+        }
 
-        /* --- ✨ EFEK GHOSTLY ECHO / GLITCH LEMBUT ✨ --- */
-        .ghost-echo { position: relative; display: inline-block; font-weight: 900; color: var(--night-blue); }
-        .ghost-echo::before, .ghost-echo::after {
+        /* --- ✨ TYPOGRAPHY & ✦ BINTANG ✨ --- */
+        h1, h2, h3, .font-genshin { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 2px; }
+        .genshin-star { color: var(--pure-white); text-shadow: 0 0 15px var(--moon-cyan), 0 0 30px var(--pure-white); margin-right: 8px; }
+
+        /* --- ✨ EFEK PRISMA KRISTAL (Bukan Glitch Error) ✨ --- */
+        .prism-wave { position: relative; display: inline-block; font-weight: 900; }
+        .prism-wave::before, .prism-wave::after {
             content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: transparent; pointer-events: none;
+            background: transparent; pointer-events: none; mix-blend-mode: screen;
         }
-        .ghost-echo::before {
-            left: 2px; text-shadow: -2px 0 var(--magenta-accent); opacity: 0.6; filter: blur(1px);
-            animation: echoPulse 4s infinite alternate;
+        .prism-wave::before {
+            left: 2px; text-shadow: -2px 0 var(--magenta-glow); opacity: 0.6; filter: blur(1px);
+            animation: prismShift 4s infinite alternate ease-in-out;
         }
-        .ghost-echo::after {
-            left: -2px; text-shadow: 2px 0 var(--crystal-blue); opacity: 0.6; filter: blur(1px);
-            animation: echoPulse 3s infinite alternate-reverse;
+        .prism-wave::after {
+            left: -2px; text-shadow: 2px 0 var(--moon-cyan); opacity: 0.6; filter: blur(1px);
+            animation: prismShift 3s infinite alternate-reverse ease-in-out;
         }
-        @keyframes echoPulse {
-            0% { transform: scale(1) translateX(0); opacity: 0.3; }
-            100% { transform: scale(1.02) translateX(2px); opacity: 0.8; }
+        @keyframes prismShift {
+            0% { transform: translateX(0) scale(1); filter: blur(1px); opacity: 0.4; }
+            100% { transform: translateX(3px) scale(1.02); filter: blur(3px); opacity: 0.8; }
         }
 
-        /* --- ✨ HEADER NAVBAR (Light Crystal Glass) ✨ --- */
+        /* --- ✨ HEADER NAVBAR (Crystal Frost Glass) ✨ --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 100%);
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--glass-border);
-            box-shadow: 0 4px 20px rgba(96, 165, 250, 0.1);
+            background: rgba(2, 6, 23, 0.5);
+            backdrop-filter: blur(25px) saturate(120%); -webkit-backdrop-filter: blur(25px) saturate(120%);
+            border-bottom: 1px solid var(--glass-border-dim);
+            box-shadow: 0 4px 30px rgba(0, 229, 255, 0.1);
             display: flex; justify-content: space-between; align-items: center; padding: 15px 6%;
         }
 
-        .logo { font-size: 26px; font-weight: 900; color: var(--night-blue); cursor: pointer; display: flex; align-items: center; }
+        .logo { font-size: 26px; font-weight: 900; color: var(--pure-white); cursor: pointer; display: flex; align-items: center; text-shadow: 0 0 15px rgba(255,255,255,0.5); }
         .nav-links { display: flex; gap: 40px; list-style: none; }
         .nav-links li a {
-            color: var(--text-dim); text-decoration: none; font-size: 15px; font-weight: 700;
+            color: var(--silver-text); text-decoration: none; font-size: 15px; font-weight: 600;
             text-transform: uppercase; transition: 0.3s; position: relative; letter-spacing: 1px;
         }
-        .nav-links li a:hover, .nav-links li a.active { color: var(--magenta-accent); text-shadow: 0 0 10px rgba(217, 66, 166, 0.2); }
-        .nav-links li a.active::after { content: ' ✦'; color: var(--crystal-blue); font-size: 12px; }
+        .nav-links li a:hover, .nav-links li a.active { color: var(--pure-white); text-shadow: 0 0 15px var(--moon-cyan); }
+        .nav-links li a.active::after { content: ' ✦'; color: var(--pure-white); font-size: 12px; text-shadow: 0 0 10px var(--moon-cyan); }
 
         /* --- ✨ GENSHIN DIVIDER ✨ --- */
-        .genshin-bar { display: flex; align-items: center; justify-content: center; width: 100%; margin: 50px 0; opacity: 0.8; }
-        .genshin-bar::before, .genshin-bar::after { content: ''; flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, var(--night-blue), transparent); }
-        .genshin-diamond { color: var(--crystal-blue); margin: 0 20px; font-size: 20px; text-shadow: 0 0 15px rgba(96, 165, 250, 0.5); transform: scaleY(1.2); }
+        .genshin-bar { display: flex; align-items: center; justify-content: center; width: 100%; margin: 50px 0; opacity: 0.9; }
+        .genshin-bar::before, .genshin-bar::after { content: ''; flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); }
+        .genshin-diamond { color: var(--pure-white); margin: 0 20px; font-size: 20px; text-shadow: 0 0 20px var(--moon-cyan); transform: scaleY(1.2); }
 
         /* --- ✨ MAIN LAYOUT ✨ --- */
         .container { max-width: 1300px; margin: 0 auto; padding: 130px 6% 60px 6%; display: flex; flex-direction: column; gap: 60px; }
 
-        /* --- ✨ PANEL KACA KRISTAL PUTIH (LIGHT GLASSMORPHISM) ✨ --- */
-        .glass-panel {
+        /* --- ✨ TRUE CRYSTAL GLASSMORPHISM PANEL ✨ --- */
+        .crystal-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            box-shadow: 0 20px 40px var(--glass-shadow), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(35px) saturate(150%); -webkit-backdrop-filter: blur(35px) saturate(150%);
+            /* Garis tepi tajam mensimulasikan potongan kristal/kaca */
+            border: 1px solid var(--glass-border-dim);
+            border-top: 1px solid var(--glass-border-highlight);
+            border-left: 1px solid var(--glass-border-highlight);
+            border-radius: 20px;
+            /* Bayangan ganda: Gelap di luar, refraksi putih di dalam */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
             padding: 50px; position: relative; overflow: hidden; transition: 0.4s ease-in-out;
         }
-        /* Efek Pantulan Cahaya Kristal menyilang di kaca */
-        .glass-panel::before {
+        
+        /* Kilap Pantulan Cahaya Diagonal (Refleksi Kaca) */
+        .crystal-panel::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.4) 100%);
-            transform: rotate(20deg); pointer-events: none; z-index: 1;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.05) 100%);
+            transform: rotate(25deg); pointer-events: none; z-index: 1;
         }
-        .glass-panel:hover { border-color: var(--crystal-blue); box-shadow: 0 25px 50px rgba(31, 38, 135, 0.15), 0 0 30px rgba(96, 165, 250, 0.2); }
+        .crystal-panel:hover { border-color: var(--pure-white); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(0, 229, 255, 0.2); }
 
         /* --- ✨ HERO SECTION ✨ --- */
         .hero-section { display: flex; align-items: center; justify-content: space-between; min-height: 70vh; gap: 40px; }
 
         .hero-text { flex: 1.1; z-index: 10; }
-        .hero-text h3 { color: var(--magenta-accent); font-size: 18px; letter-spacing: 6px; margin-bottom: 15px; font-weight: 700; }
-        .hero-text h1 { font-size: 70px; line-height: 1.1; margin-bottom: 25px; color: var(--night-blue); }
-        .hero-text p { color: var(--text-dim); font-size: 19px; max-width: 500px; margin-bottom: 40px; line-height: 1.8; font-weight: 500; }
+        .hero-text h3 { color: var(--pure-white); font-size: 18px; letter-spacing: 6px; margin-bottom: 15px; text-shadow: 0 0 15px var(--moon-cyan); }
+        .hero-text h1 { font-size: 75px; line-height: 1.1; margin-bottom: 25px; text-shadow: 0 0 30px rgba(255,255,255,0.5); }
+        .hero-text p { color: var(--silver-text); font-size: 19px; max-width: 500px; margin-bottom: 40px; line-height: 1.8; }
 
-        /* Tombol Interaktif */
+        /* Tombol Kristal Interaktif */
         .btn-interact {
             display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-            background: rgba(255, 255, 255, 0.8); color: var(--night-blue);
-            border: 1px solid var(--crystal-blue); border-left: 4px solid var(--magenta-accent);
+            background: rgba(255, 255, 255, 0.05); color: var(--pure-white);
+            border: 1px solid rgba(255,255,255,0.3); border-left: 4px solid var(--moon-cyan);
+            backdrop-filter: blur(10px);
             padding: 15px 40px; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 3px;
-            text-transform: uppercase; cursor: pointer; transition: 0.3s;
-            position: relative; overflow: hidden; z-index: 10;
-            box-shadow: 0 5px 15px rgba(96, 165, 250, 0.2);
+            text-transform: uppercase; cursor: pointer; transition: 0.4s;
+            position: relative; overflow: hidden; z-index: 10; border-radius: 4px;
         }
         .btn-interact::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--night-blue); z-index: -1; transform: translateX(-101%); transition: 0.4s ease-in-out;
+            background: var(--pure-white); z-index: -1; transform: translateX(-101%); transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
-        .btn-interact:hover { color: var(--pure-white); border-color: var(--night-blue); box-shadow: 0 10px 25px rgba(31, 38, 135, 0.3); }
+        .btn-interact:hover { color: var(--midnight-blue); border-color: var(--pure-white); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); text-shadow: none; }
         .btn-interact:hover::before { transform: translateX(0); }
 
         .hero-image { flex: 0.9; display: flex; justify-content: flex-end; position: relative; z-index: 5; }
         .hero-image img {
             width: 100%; max-width: 750px; object-fit: contain;
-            filter: drop-shadow(0 20px 40px rgba(31, 38, 135, 0.2));
-            animation: floatAngel 8s ease-in-out infinite;
+            filter: drop-shadow(0 20px 50px rgba(0, 229, 255, 0.15)) drop-shadow(0 0 80px rgba(255, 255, 255, 0.1));
+            animation: floatGoddess 8s ease-in-out infinite;
         }
-        @keyframes floatAngel { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        @keyframes floatGoddess { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
 
         /* --- ✨ CHARACTER INFO SECTION ✨ --- */
         .info-section { display: flex; align-items: center; justify-content: space-between; gap: 50px; }
 
         .info-image { flex: 1; text-align: center; z-index: 5; }
-        .info-image img { width: 100%; max-width: 480px; object-fit: contain; filter: contrast(105%) drop-shadow(0 0 30px rgba(255, 255, 255, 0.8)); transition: 0.4s; }
-        .info-image img:hover { filter: contrast(110%) drop-shadow(0 0 50px rgba(96, 165, 250, 0.4)); }
+        .info-image img { width: 100%; max-width: 480px; object-fit: contain; filter: contrast(105%) drop-shadow(0 0 30px rgba(255, 255, 255, 0.15)); transition: 0.4s; }
+        .info-image img:hover { filter: contrast(110%) drop-shadow(0 0 50px rgba(0, 229, 255, 0.4)); }
 
         .info-details { flex: 1.2; z-index: 5; position: relative; }
-        .info-details h2 { font-size: 48px; margin-bottom: 5px; color: var(--night-blue); }
-        .info-stars { color: var(--night-blue); font-size: 22px; letter-spacing: 6px; margin-bottom: 25px; }
-        .info-stars span { color: var(--magenta-accent); }
-        .info-desc { font-size: 17px; color: var(--text-dim); line-height: 1.8; margin-bottom: 35px; font-weight: 500; }
+        .info-details h2 { font-size: 50px; margin-bottom: 5px; color: var(--pure-white); text-shadow: 0 0 20px rgba(255,255,255,0.4); }
+        .info-stars { color: var(--pure-white); font-size: 22px; letter-spacing: 6px; margin-bottom: 25px; }
+        .info-stars span { color: var(--moon-cyan); text-shadow: 0 0 15px var(--moon-cyan); }
+        .info-desc { font-size: 18px; color: var(--silver-text); line-height: 1.8; margin-bottom: 35px; }
 
-        .attr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; border-top: 1px solid rgba(11, 18, 41, 0.1); padding-top: 30px; }
-        .attr-item h4 { font-size: 14px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 5px; font-weight: 700; }
-        .attr-item p { font-size: 20px; color: var(--night-blue); font-weight: 700; }
+        .attr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 30px; }
+        .attr-item h4 { font-size: 14px; color: var(--silver-text); text-transform: uppercase; margin-bottom: 5px; }
+        .attr-item p { font-size: 20px; color: var(--pure-white); font-weight: 600; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
         /* --- ✨ MEDIA GALLERY SECTION ✨ --- */
-        .media-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .media-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         
         .media-box {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px; overflow: hidden; position: relative; transition: 0.4s ease-in-out; cursor: pointer;
-            box-shadow: 0 10px 30px rgba(31, 38, 135, 0.08);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border-dim);
+            border-top: 1px solid var(--glass-border-highlight);
+            border-left: 1px solid var(--glass-border-highlight);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: 15px; overflow: hidden; position: relative; transition: 0.4s ease-in-out; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .media-box:hover { border-color: var(--crystal-blue); transform: translateY(-8px); box-shadow: 0 15px 40px rgba(96, 165, 250, 0.2); }
-        .media-box img, .media-box video { width: 100%; height: 240px; object-fit: cover; filter: contrast(105%) brightness(0.9); transition: 0.5s ease-in-out; }
-        .media-box:hover img, .media-box:hover video { filter: contrast(110%) brightness(1.1); transform: scale(1.05); }
+        .media-box:hover { border-color: var(--pure-white); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0, 229, 255, 0.2); }
+        .media-box img, .media-box video { width: 100%; height: 240px; object-fit: cover; filter: grayscale(10%) contrast(110%); transition: 0.5s ease-in-out; }
+        .media-box:hover img, .media-box:hover video { filter: grayscale(0%) contrast(115%) brightness(1.1); transform: scale(1.05); }
 
         .media-label {
             position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px;
-            background: linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));
-            font-size: 16px; font-weight: 800; color: var(--night-blue); text-transform: uppercase; letter-spacing: 2px;
+            background: linear-gradient(to top, rgba(2, 6, 23, 0.9), transparent);
+            font-size: 16px; font-weight: 700; color: var(--pure-white); text-transform: uppercase; letter-spacing: 2px;
         }
 
         .media-box.video-large { grid-column: span 3; }
         .media-box.video-large img, .media-box.video-large video { height: 450px; }
 
         /* --- FOOTER --- */
-        footer { margin-top: 80px; padding: 50px 20px; text-align: center; background: rgba(255, 255, 255, 0.8); position: relative; border-top: 1px solid var(--glass-border); }
-        footer::before { content: ''; position: absolute; top: -1px; left: 50%; width: 300px; height: 2px; background: var(--magenta-accent); transform: translateX(-50%); box-shadow: 0 0 15px var(--magenta-accent); }
+        footer { margin-top: 80px; padding: 50px 20px; text-align: center; background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(10px); position: relative; border-top: 1px solid rgba(255,255,255,0.1); }
+        footer::before { content: ''; position: absolute; top: -1px; left: 50%; width: 300px; height: 2px; background: var(--moon-cyan); transform: translateX(-50%); box-shadow: 0 0 20px var(--moon-cyan); }
 
         /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 990px) {
             header { padding: 15px 5%; position: fixed; top: 0; width: 100%; gap: 15px; flex-direction: column; }
             .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
             .container { padding: 140px 5% 50px 5%; margin: 0; gap: 40px; }
-            .glass-panel { padding: 30px; }
+            .crystal-panel { padding: 30px; }
             .hero-section, .info-section { flex-direction: column; text-align: center; gap: 40px; }
             .hero-text, .info-details { text-align: center; order: 2; width: 100%; }
             .hero-text h1 { font-size: 45px; }
@@ -250,25 +242,27 @@
             .media-grid { grid-template-columns: 1fr; gap: 20px; }
             .media-box.video-large { grid-column: span 1; }
             .media-box img, .media-box video, .media-box.video-large img, .media-box.video-large video { height: 200px; }
+            .divine-moon { width: 400px; height: 400px; top: 10%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="crystal-moon"></div>
-    <div class="aurora-sweep"></div>
+    <div class="sky-bg"></div>
+    <div class="divine-moon"></div>
+    <div class="magenta-aurora"></div>
     
-    <div id="feathers-container"></div>
+    <div id="dew-container"></div>
 
     <header>
         <div class="logo font-genshin" onclick="showAlert('Sistem Utama House of the Hearth diakses.')">
             <span class="genshin-star">✦</span> GENSHIN FAN
         </div>
         <ul class="nav-links font-arle">
-            <li><a href="#" class="active">Nexus</a></li>
-            <li><a href="#info">Arsip Data</a></li>
-            <li><a href="#media">Protokol</a></li>
-            <li><a href="#" onclick="showAlert('Menghubungkan ke markas...')">Hubungi</a></li>
+            <li><a href="#" class="active">Elysium</a></li>
+            <li><a href="#info">Arsip Suci</a></li>
+            <li><a href="#media">Melodi</a></li>
+            <li><a href="#" onclick="showAlert('Memulai nyanyian pelindung...')">Berdialog</a></li>
         </ul>
     </header>
 
@@ -277,16 +271,16 @@
         <section class="hero-section">
             <div class="hero-text">
                 <h3 class="font-arle"><span class="genshin-star">✦</span> HARBINGER // 03</h3>
-                <h1 class="font-genshin ghost-echo" data-text="DAMSELETTE">DAMSELETTE</h1>
+                <h1 class="font-genshin prism-wave" data-text="DAMSELETTE">DAMSELETTE</h1>
                 <p class="font-arle">
-                    "Gadis yang tertidur dalam nyanyian abadi... Penampilannya yang polos dan suci menyembunyikan misteri yang tak terukur. Bahkan para Harbinger lain pun berhati-hati terhadap melodi sunyinya."
+                    "Sang Dewi Bulan yang tertidur dalam nyanyian abadi. Di bawah naungan cahaya embun dan kristal es, ia membimbing jiwa-jiwa yang hilang. Ia adalah Fatui, namun hatinya menyimpan kedamaian yang melampaui pemahaman manusia."
                 </p>
-                <button class="btn-interact font-arle" onclick="showAlert('Mengakses data terselubung Damselette...')">
-                    ✦ BUKA DATA PROFIL
+                <button class="btn-interact font-arle" onclick="showAlert('Mendengarkan senandung Damselette... Hati terasa damai.')">
+                    <span class="genshin-star" style="margin:0; text-shadow:none;">✦</span> TEMUI SANG DEWI
                 </button>
             </div>
             <div class="hero-image">
-                <img src="https://dummyimage.com/1000x1000/f0f4f8/60a5fa.png&text=Ganti+dgn+Foto+Columbina" alt="Columbina Splash Art">
+                <img src="https://dummyimage.com/1000x1000/0f172a/ffffff.png&text=Foto+Columbina+Bersayap" alt="Columbina Splash Art">
             </div>
         </section>
 
@@ -294,36 +288,36 @@
             <div class="genshin-diamond font-genshin">✦</div>
         </div>
 
-        <section class="info-section glass-panel">
+        <section class="info-section crystal-panel">
             <div class="info-image">
-                <img src="https://dummyimage.com/600x900/f0f4f8/111827.png&text=Concept+Art+Columbina" alt="Columbina Concept">
+                <img src="https://dummyimage.com/600x900/0f172a/ffffff.png&text=Concept+Art+Columbina" alt="Columbina Concept">
             </div>
             
             <div class="info-details">
-                <h2 class="font-genshin"><span class="genshin-star" style="color:var(--crystal-blue);">✦</span> COLUMBINA</h2>
+                <h2 class="font-genshin"><span class="genshin-star">✦</span> COLUMBINA</h2>
                 <div class="info-stars">
                     <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
                 <p class="info-desc font-arle">
-                    Dikenal sebagai "Damselette", ia menduduki kursi ke-3 dari Eleven Fatui Harbingers. Kekuatannya yang sejati bagaikan kristal es tak tersentuh di Snezhnaya. Ia selalu terlihat dengan mata tertutup, bersenandung lembut di tengah medan perang.
+                    Meskipun berada di peringkat ke-3 Harbingers, kehadirannya tidak membawa teror, melainkan ketenangan yang memabukkan bagai embun pagi. Ia menyelimuti rekan-rekannya dengan perlindungan suci. Mereka yang mendengar senandungnya akan melupakan segala rasa sakit di medan perang.
                 </p>
                 
                 <div class="attr-grid font-arle">
                     <div class="attr-item">
-                        <h4>Elemen</h4>
-                        <p style="color: var(--crystal-blue); text-shadow: 0 0 10px rgba(96, 165, 250, 0.4);">✦ Classified (Anemo/Cryo?)</p>
+                        <h4>Elemen Pelindung</h4>
+                        <p style="color: var(--moon-cyan); text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">✦ Cahaya (Light/Cryo)</p>
                     </div>
                     <div class="attr-item">
-                        <h4>Senjata</h4>
-                        <p>✦ Unknown</p>
+                        <h4>Peran</h4>
+                        <p>✦ Guardian / Healer</p>
                     </div>
                     <div class="attr-item">
                         <h4>Afiliasi</h4>
                         <p>✦ Fatui Harbingers</p>
                     </div>
                     <div class="attr-item">
-                        <h4>Asal-usul</h4>
-                        <p style="color: var(--magenta-accent);">✦ Seelie / Celestial?</p>
+                        <h4>Aura Suci</h4>
+                        <p style="color: var(--magenta-glow); text-shadow: 0 0 10px rgba(224, 36, 181, 0.4);">✦ Moon Goddess</p>
                     </div>
                 </div>
             </div>
@@ -334,60 +328,60 @@
         </div>
 
         <section class="media-grid">
-            <div class="media-box">
-                <img src="https://dummyimage.com/400x300/f0f4f8/60a5fa.png&text=Foto+Visual" alt="Visual Form">
-                <div class="media-label font-arle"><span class="genshin-star">✦</span> Visual Form</div>
+            <div class="media-box crystal-panel" style="padding: 0; border-radius: 12px;">
+                <img src="https://dummyimage.com/400x300/020617/ffffff.png&text=Foto+Cahaya+Suci" alt="Cahaya Suci">
+                <div class="media-label font-arle"><span class="genshin-star">✦</span> Manifestasi Cahaya</div>
             </div>
-            <div class="media-box">
-                <img src="https://dummyimage.com/400x300/f0f4f8/d942a6.png&text=Foto+A Winter Night's Lazzo" alt="Intel Operasi">
-                <div class="media-label font-arle"><span class="genshin-star">✦</span> Lazzo Intel</div>
+            <div class="media-box crystal-panel" style="padding: 0; border-radius: 12px;">
+                <img src="https://dummyimage.com/400x300/020617/ffffff.png&text=Foto+Senandung" alt="Senandung Malam">
+                <div class="media-label font-arle"><span class="genshin-star">✦</span> Senandung Malam</div>
             </div>
-            <div class="media-box video-large">
+            <div class="media-box video-large crystal-panel" style="padding: 0; border-radius: 15px;">
                 <video controls>
                     <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                     Browser Anda tidak mendukung tag video.
                 </video>
-                <div class="media-label font-arle"><span class="genshin-star">✦</span> Rekaman Audio: Melodi Damselette</div>
+                <div class="media-label font-arle"><span class="genshin-star">✦</span> Arsip Audio: Melodi Penyembuh</div>
             </div>
         </section>
 
     </div>
 
     <footer>
-        <h3 class="font-genshin" style="color: var(--night-blue); font-size: 20px;"><span class="genshin-star">✦</span> GENSHIN FAN</h3>
-        <p class="font-arle" style="color: var(--text-dim); margin-top: 10px; font-size: 15px;">Dikembangkan untuk Arsip Intelijen Fatui.</p>
+        <h3 class="font-genshin" style="color: var(--pure-white); font-size: 20px;"><span class="genshin-star">✦</span> GENSHIN FAN</h3>
+        <p class="font-arle" style="color: var(--silver-text); margin-top: 10px; font-size: 14px;">Buku Harian Suci Sang Dewi Bulan.</p>
     </footer>
 
     <script>
         function showAlert(pesan) {
-            alert("✦ PROTOKOL FATUI ✦\n\nSistem: " + pesan);
+            alert("✦ SUARA DARI ELYSIUM ✦\n\n" + pesan);
         }
 
-        // Script untuk men-generate partikel Bulu Sayap (Feathers)
+        // Script untuk men-generate partikel embun/cahaya jatuh
         document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('feathers-container');
-            const totalFeathers = 25; // Jumlah bulu
+            const container = document.getElementById('dew-container');
+            const totalDews = 35; 
 
-            for (let i = 0; i < totalFeathers; i++) {
-                let feather = document.createElement('div');
-                feather.classList.add('feather');
+            for (let i = 0; i < totalDews; i++) {
+                let dew = document.createElement('div');
+                dew.classList.add('dewdrop');
                 
-                let sizeWidth = Math.random() * 2 + 2; 
-                let sizeHeight = Math.random() * 10 + 10; 
-                let startPos = Math.random() * 100; 
-                let animDuration = Math.random() * 10 + 8; // Jatuh lambat
-                let animDelay = Math.random() * 10; 
+                let size = Math.random() * 4 + 2; // Ukuran 2px - 6px
+                let startPos = Math.random() * 100; // Posisi horizontal (vw)
+                let animDuration = Math.random() * 6 + 6; // Durasi jatuh 6s - 12s
+                let animDelay = Math.random() * 8; 
                 
-                feather.style.width = sizeWidth + 'px';
-                feather.style.height = sizeHeight + 'px';
-                feather.style.left = startPos + 'vw';
-                feather.style.animationDuration = animDuration + 's';
-                feather.style.animationDelay = animDelay + 's';
+                dew.style.width = size + 'px';
+                dew.style.height = size + 'px';
+                dew.style.left = startPos + 'vw';
+                dew.style.animationDuration = animDuration + 's';
+                dew.style.animationDelay = animDelay + 's';
 
-                container.appendChild(feather);
+                container.appendChild(dew);
             }
         });
     </script>
 
 </body>
 </html>
+                  
