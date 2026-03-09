@@ -3,97 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genshin Fan - The Knave Protocol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@300;400;600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <title>Genshin Fan - The Knave Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- ARLECCHINO COLOR PALETTE --- */
+        /* --- PALET WARNA MUTLAK ARLECCHINO --- */
         :root {
-            --bg-pure-black: #030303;
-            --arle-red: #c91414;
-            --arle-dark-red: #8f0b0b;
-            --arle-neon-red: #ff1a33;
-            --arle-white: #e8e8e8;
-            --text-main: #fcfcfc;
-            --text-dim: #909090;
-            --glass-bg: rgba(20, 20, 25, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --arle-border-gold: rgba(201, 20, 20, 0.6);
+            --void-black: #050505;
+            --dark-gray: #121212;
+            --ash-gray: #888888;
+            --pure-white: #ffffff;
+            --crimson-red: #d31515;
+            --dark-red: #7a0b0b;
+            --glass-bg: rgba(15, 15, 15, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.15);
         }
 
-        /* --- BASIC SETUP & GLOBAL --- */
+        /* --- BASIC SETUP --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Rajdhani', sans-serif;
-            background-color: var(--bg-pure-black);
-            color: var(--text-main);
+            background-color: var(--void-black);
+            color: var(--pure-white);
             overflow-x: hidden;
-            line-height: 1.6;
             min-height: 100vh;
-            /* Latar Belakang Red Moon Glow & Grid */
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(201, 20, 20, 0.2) 0%, var(--bg-pure-black) 70%),
-                linear-gradient(rgba(168, 0, 0, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(168, 0, 0, 0.05) 1px, transparent 1px);
-            background-size: 100vw 100vh, 40px 40px, 40px 40px;
+            /* Background: Void Black dengan pendaran Red Moon di tengah */
+            background-image: radial-gradient(circle at 50% 40%, rgba(211, 21, 21, 0.15) 0%, var(--void-black) 60%);
             background-attachment: fixed;
         }
 
-        /* --- SPACEBREAK / FRACTURE BACKGROUND EFFECT --- */
+        /* --- SPACEBREAK EFFECT (Retakan Ruang) --- */
         .spacebreak-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -2;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
             background: 
-                linear-gradient(115deg, transparent 49.5%, rgba(201, 20, 20, 0.2) 49.8%, transparent 50.5%),
-                linear-gradient(240deg, transparent 49%, rgba(255, 255, 255, 0.08) 49.5%, transparent 50.5%);
-            background-size: 100vw 100vh;
-            opacity: 0.9;
-            animation: shatter 12s infinite alternate linear;
+                linear-gradient(135deg, transparent 49.5%, rgba(211, 21, 21, 0.15) 50%, transparent 50.5%),
+                linear-gradient(225deg, transparent 49.5%, rgba(255, 255, 255, 0.05) 50%, transparent 50.5%);
+            background-size: 120vw 120vh;
+            background-position: center;
+            animation: shatter 8s infinite alternate ease-in-out;
+            pointer-events: none;
+            opacity: 0.8;
         }
 
         @keyframes shatter {
             0% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.05) translate(8px, -8px); }
-            100% { transform: scale(1) translate(-3px, 3px); }
+            50% { transform: scale(1.02) translate(5px, -5px); }
+            100% { transform: scale(1) translate(-2px, 2px); }
         }
 
-        /* --- GENSHIN & ARLECCHINO TYPOGRAPHY --- */
-        h1, h2, h3, .logo-text, .glitch {
-            font-family: 'Cinzel', serif; /* Gothic/Genshin Style */
-            text-transform: uppercase;
-        }
-        
-        .logo-text { color: var(--text-main); font-size: 26px; font-weight: 900; letter-spacing: 3px; cursor: pointer; display: flex; align-items: center; gap: 12px; }
-        .logo-text::before { content: '✘'; color: var(--arle-neon-red); font-size: 30px; text-shadow: 0 0 10px var(--arle-neon-red); }
+        /* --- TYPOGRAPHY --- */
+        .font-genshin { font-family: 'Cinzel', serif; letter-spacing: 2px; }
+        .font-arle { font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; }
 
-        /* --- GLITCH TEXT EFFECT --- */
-        .glitch {
-            position: relative;
-            display: inline-block;
-            font-weight: 900;
-        }
+        /* --- GLITCH EFFECT --- */
+        .glitch { position: relative; display: inline-block; font-weight: 900; }
         .glitch::before, .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: transparent;
-            pointer-events: none;
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; pointer-events: none;
         }
         .glitch::before {
-            left: 2px;
-            text-shadow: -2px 0 var(--arle-neon-red);
-            clip: rect(24px, 550px, 90px, 0);
-            animation: glitch-anim 3s infinite linear alternate-reverse;
+            left: 2px; text-shadow: -2px 0 var(--crimson-red);
+            clip: rect(24px, 550px, 90px, 0); animation: glitch-anim 3s infinite linear alternate-reverse;
         }
         .glitch::after {
-            left: -2px;
-            text-shadow: -2px 0 rgba(255, 255, 255, 0.5);
-            clip: rect(85px, 550px, 140px, 0);
-            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+            left: -2px; text-shadow: -2px 0 var(--ash-gray);
+            clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2.5s infinite linear alternate-reverse;
         }
-
         @keyframes glitch-anim {
             0% { clip: rect(10px, 9999px, 44px, 0); }
             20% { clip: rect(80px, 9999px, 90px, 0); }
@@ -103,234 +78,174 @@
             100% { clip: rect(60px, 9999px, 70px, 0); }
         }
 
-        /* --- CLASSMORPHISM COMPONENTS --- */
+        /* --- HEADER FIXED (Disempurnakan) --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.75);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 60px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        }
+
+        .logo { font-size: 24px; font-weight: 800; color: var(--pure-white); display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo-icon { color: var(--crimson-red); font-size: 26px; text-shadow: 0 0 10px var(--crimson-red); }
+
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links li a {
+            color: var(--ash-gray); text-decoration: none; font-size: 16px; font-weight: 600;
+            text-transform: uppercase; transition: 0.3s; position: relative;
+        }
+        .nav-links li a:hover, .nav-links li a.active { color: var(--pure-white); text-shadow: 0 0 8px var(--pure-white); }
+        .nav-links li a.active::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px;
+            background: var(--crimson-red); box-shadow: 0 0 10px var(--crimson-red);
+        }
+
+        /* --- GENSHIN DIVIDER (Garis & Diamond) --- */
+        .genshin-bar {
+            display: flex; align-items: center; justify-content: center; width: 100%; margin: 25px 0; opacity: 0.8;
+        }
+        .genshin-bar::before, .genshin-bar::after {
+            content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--ash-gray), transparent);
+        }
+        .genshin-diamond {
+            width: 10px; height: 10px; background: var(--crimson-red);
+            transform: rotate(45deg); margin: 0 15px; border: 1px solid var(--pure-white);
+            box-shadow: 0 0 8px var(--crimson-red);
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            max-width: 1100px; margin: 120px auto 50px auto; padding: 0 20px;
+            display: flex; flex-direction: column; gap: 50px;
+        }
+
+        /* --- GLASS PANEL (Transparan Khas Referensi) --- */
         .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 25px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.05);
+            padding: 40px; position: relative;
         }
-
-        /* --- ARLECCHINO BORDER (Geometric/X patterns) --- */
+        
+        /* Bordiran Motif X Samar di panel */
         .glass-panel::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 10;
-            /* Pola bordiran khas Arlecchino 'X' Neon Merah */
-            background-image: 
-                linear-gradient(45deg, var(--arle-dark-red) 1px, transparent 1px),
-                linear-gradient(-45deg, var(--arle-dark-red) 1px, transparent 1px);
-            background-size: 20px 20px;
-            mask-image: linear-gradient(to right, black, transparent 10%, transparent 90%, black), linear-gradient(to bottom, black, transparent 10%, transparent 90%, black);
-            -webkit-mask-image: linear-gradient(to right, black, transparent 10%, transparent 90%, black), linear-gradient(to bottom, black, transparent 10%, transparent 90%, black);
-            mask-composite: intersect; -webkit-mask-composite: intersect;
-            opacity: 0.15;
-            transition: 0.3s;
-        }
-        .glass-panel:hover::after { opacity: 0.3; }
-
-        /* --- INTERACTIVE BUTTONS GLASS & GLITCH --- */
-        .btn-cyber {
-            background: rgba(0, 0, 0, 0.5);
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 16px; font-weight: 700; letter-spacing: 3px;
-            text-transform: uppercase;
-            padding: 15px 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            position: relative;
-            transition: all 0.4s ease;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-            z-index: 10;
-        }
-        
-        .btn-cyber:hover {
-            color: var(--arle-neon-red);
-            border-color: var(--arle-neon-red);
-            box-shadow: 0 0 20px var(--arle-neon-red);
-            text-shadow: 0 0 5px var(--arle-neon-red);
-            transform: translateY(-2px);
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(45deg, var(--dark-gray) 1px, transparent 1px), linear-gradient(-45deg, var(--dark-gray) 1px, transparent 1px);
+            background-size: 20px 20px; opacity: 0.2; z-index: -1; pointer-events: none;
+            border-radius: 20px;
         }
 
-        .btn-cyber:active { transform: scale(0.95); }
-
-        /* --- TECH DIVIDER --- */
-        .tech-divider { display: flex; align-items: center; justify-content: center; margin: 60px 0; }
-        .tech-divider::before, .tech-divider::after { content: ''; height: 1px; width: 30vw; background: linear-gradient(90deg, transparent, var(--arle-neon-red), transparent); }
-        .tech-divider span { color: var(--arle-neon-red); font-size: 14px; margin: 0 15px; letter-spacing: 5px; font-weight: bold; }
-
-        /* --- LAYOUT UTAMA --- */
-        .container {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 480px 1fr;
-            gap: 40px;
-            position: relative;
-            z-index: 10;
+        /* --- CENTRAL UI (Astrolabe & Nodes) --- */
+        .central-ui {
+            display: flex; flex-direction: column; align-items: center; text-align: center;
         }
 
-        /* --- PANEL KIRI: CENTRAL PROFILE (ASTROLABE RINGS) --- */
-        .central-profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 40px;
-            position: relative;
-            border-top: 3px solid var(--arle-red);
-        }
-
-        /* LAYERED RINGS (CINCIN BERLAPIS) - GLASS & NEON RED */
-        .profile-rings {
-            position: relative;
-            width: 320px; height: 320px;
-            margin: 20px 0 40px 0;
+        .astrolabe-container {
+            position: relative; width: 300px; height: 300px; margin: 30px 0;
             display: flex; justify-content: center; align-items: center;
-            z-index: 1;
         }
-        
-        /* Cincin Luar Bergerigi/Gear */
+
+        /* Cincin Luar (Dashed Putih/Abu) */
         .ring-outer {
-            position: absolute; width: 100%; height: 100%;
-            border-radius: 50%;
-            border: 4px dashed rgba(201, 20, 20, 0.4);
-            animation: spin-cw 40s linear infinite;
+            position: absolute; width: 100%; height: 100%; border-radius: 50%;
+            border: 2px dashed var(--ash-gray); animation: spin 25s linear infinite;
         }
-        
-        /* Cincin Tengah Neon Red Glow */
-        .ring-middle {
-            position: absolute; width: 88%; height: 88%;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 26, 51, 0.5);
-            box-shadow: 0 0 40px rgba(255, 26, 51, 0.3), inset 0 0 30px rgba(255, 26, 51, 0.2);
-            animation: pulse-neon 4s infinite alternate ease-in-out;
-        }
-        
-        /* Cincin Dalam Kaca / Glassmorphism */
+        /* Cincin Dalam (Merah Menyala) */
         .ring-inner {
-            position: absolute; width: 75%; height: 75%;
-            border-radius: 50%;
-            background: rgba(10, 10, 10, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            z-index: 2;
-        }
-        
-        /* FOTO KARAKTER */
-        .avatar-img {
-            position: absolute; width: 68%; height: 68%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--text-main);
-            filter: grayscale(20%) contrast(110%);
-            z-index: 3;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            position: absolute; width: 85%; height: 85%; border-radius: 50%;
+            border: 2px solid var(--crimson-red); box-shadow: 0 0 20px rgba(211, 21, 21, 0.3);
+            animation: spin 15s linear infinite reverse;
         }
 
-        @keyframes spin-cw { 100% { transform: rotate(360deg); } }
-        @keyframes pulse-neon {
-            0% { opacity: 0.6; box-shadow: 0 0 30px rgba(255, 26, 51, 0.2); }
-            100% { opacity: 1; box-shadow: 0 0 60px rgba(255, 26, 51, 0.5); }
+        /* FOTO UTAMA ARLECCHINO */
+        .main-avatar {
+            width: 75%; height: 75%; border-radius: 50%; object-fit: cover; z-index: 5;
+            border: 3px solid var(--pure-white); filter: contrast(110%) grayscale(20%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); transition: 0.5s;
         }
+        .main-avatar:hover { filter: contrast(100%) grayscale(0%); transform: scale(1.05); }
 
-        /* Detail Teks Profil */
-        .profile-name { font-size: 38px; letter-spacing: 5px; color: #fff; text-shadow: 0 0 15px var(--arle-neon-red); z-index: 1; }
-        .profile-title { font-size: 15px; color: var(--arle-red); font-weight: 700; letter-spacing: 5px; margin-bottom: 25px; z-index: 1; font-family: 'Rajdhani', sans-serif; }
+        /* Nodes / Lingkaran Kecil (Sesuai Referensimu) */
+        .node {
+            position: absolute; width: 60px; height: 60px; border-radius: 50%;
+            background: var(--dark-gray); border: 2px solid var(--ash-gray);
+            z-index: 10; display: flex; justify-content: center; align-items: center;
+            overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            transition: 0.3s; cursor: pointer;
+        }
+        .node img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.3s; }
+        .node:hover { border-color: var(--crimson-red); transform: scale(1.1); }
+        .node:hover img { opacity: 1; }
+
+        /* Posisi Nodes */
+        .node-1 { top: -10px; left: -10px; }
+        .node-2 { top: -10px; right: -10px; }
+        .node-3 { bottom: 10px; right: -20px; }
+        .node-4 { bottom: 10px; left: -20px; }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Typography Profil */
+        .profile-name { font-size: 42px; color: var(--pure-white); margin-top: 10px; letter-spacing: 5px; }
+        .profile-title { font-size: 16px; color: var(--crimson-red); font-weight: 700; letter-spacing: 6px; margin-bottom: 20px; }
+
         .profile-desc {
-            font-size: 15px; color: var(--text-dim); line-height: 1.8;
-            background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 12px;
-            border-left: 3px solid var(--arle-red); z-index: 1;
-            text-align: left;
+            max-width: 700px; font-size: 15px; color: var(--pure-white); line-height: 1.8;
+            background: rgba(0, 0, 0, 0.6); padding: 20px; border-radius: 10px;
+            border-left: 3px solid var(--crimson-red); margin-top: 10px;
         }
 
-        /* --- PANEL KANAN (DATANexus / MISSION BRIEFING) --- */
-        .datanexus-panel {
-            display: flex; flex-direction: column; gap: 30px;
+        /* --- GALLERY SECTION --- */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px;
         }
 
-        /* Header Nexus */
-        .nexus-header {
-            display: flex; flex-direction: column; align-items: flex-start;
-            border-left: 4px solid var(--arle-neon-red); padding-left: 15px;
-            margin-bottom: 10px;
-        }
-        .nexus-header h2 { font-size: 38px; letter-spacing: 3px; color: var(--text-main); }
-        .nexus-header span { color: var(--arle-neon-red); font-size: 14px; letter-spacing: 5px; font-weight: 700; font-family: 'Rajdhani', sans-serif; }
-
-        /* Grid Data (Foto & Video) */
-        .datanexus-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
-        }
-
-        .data-card {
-            background: rgba(10, 10, 12, 0.6);
-            border: 1px solid rgba(255, 26, 51, 0.2);
-            padding: 10px;
-            position: relative;
-            transition: 0.4s;
-            overflow: hidden;
+        .media-card {
+            background: rgba(10, 10, 10, 0.6); border: 1px solid var(--glass-border);
+            border-radius: 12px; overflow: hidden; position: relative; transition: 0.4s;
         }
         
-        /* Sudut UI Melayang khas game sci-fi */
-        .data-card::before, .data-card::after {
-            content: '✘'; position: absolute;
-            color: var(--arle-red); font-weight: 900; font-size: 14px;
-            transition: 0.4s; opacity: 0.6; z-index: 2;
+        /* Aksen Geometris Sudut */
+        .media-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 25px; height: 25px;
+            border-top: 2px solid var(--pure-white); border-left: 2px solid var(--pure-white);
+            z-index: 5; transition: 0.3s; opacity: 0.5;
         }
-        .data-card::before { top: 10px; left: 10px; }
-        .data-card::after { bottom: 10px; right: 10px; }
+        .media-card:hover { border-color: var(--crimson-red); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(211, 21, 21, 0.2); }
+        .media-card:hover::before { border-color: var(--crimson-red); opacity: 1; width: 35px; height: 35px; }
 
-        .data-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 26, 51, 0.6);
-            box-shadow: 0 10px 30px rgba(179, 0, 27, 0.3);
-        }
-        
-        .data-card:hover::before, .data-card:hover::after { opacity: 1; color: var(--arle-neon-red); font-size: 20px; text-shadow: 0 0 10px var(--arle-neon-red); }
+        .media-content { width: 100%; height: 200px; background: #000; position: relative; }
+        .media-content img, .media-content video { width: 100%; height: 100%; object-fit: cover; filter: grayscale(40%); transition: 0.5s; }
+        .media-card:hover .media-content img, .media-card:hover .media-content video { filter: grayscale(0%); transform: scale(1.05); }
 
-        .card-media {
-            width: 100%; height: 260px; background: #000;
-            overflow: hidden; position: relative;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+        .badge {
+            position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.8);
+            border: 1px solid var(--ash-gray); color: var(--pure-white); font-size: 11px;
+            padding: 4px 10px; font-weight: 700; letter-spacing: 1px; font-family: 'Rajdhani', sans-serif;
         }
 
-        .card-media img, .card-media video {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: contrast(120%) grayscale(30%); transition: 0.6s ease;
-        }
+        .media-info { padding: 15px; }
+        .media-info h4 { font-size: 16px; color: var(--pure-white); text-transform: uppercase; margin-bottom: 5px; }
+        .media-info p { font-size: 13px; color: var(--ash-gray); }
 
-        .data-card:hover .card-media img, .data-card:hover .card-media video {
-            transform: scale(1.1);
-            filter: contrast(100%) grayscale(0%);
-        }
+        /* Video Card Lebar */
+        .video-card { grid-column: 1 / -1; }
+        .video-card .media-content { height: 350px; }
+        .video-card .badge { border-color: var(--crimson-red); color: var(--crimson-red); }
 
-        .card-info { padding: 20px 10px 10px 10px; display: flex; justify-content: space-between; align-items: center; }
-        .card-title { font-size: 19px; font-weight: 700; letter-spacing: 1px; color: var(--text-main); text-transform: uppercase; }
-        .card-status { font-size: 12px; color: var(--arle-neon-red); letter-spacing: 3px; font-weight: 700; }
-
-        /* Footer */
-        footer { margin-top: 80px; padding: 60px 20px; text-align: center; background: rgba(0, 0, 0, 0.95); border-top: 2px solid var(--arle-red); position: relative; }
-        footer::before { content: ''; position: absolute; top: -1px; left: 50%; width: 200px; height: 3px; background: var(--arle-neon-red); transform: translateX(-50%); box-shadow: 0 0 10px var(--arle-neon-red); }
-
-        /* RESPONSIVE MOBILE */
-        @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; padding: 15px; margin: 20px auto; }
-            .central-profile { padding: 25px; }
-            .profile-rings { width: 260px; height: 260px; }
-            .datanexus-grid { grid-template-columns: 1fr; }
-            .btn-cyber { width: 100%; text-align: center; }
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; flex-direction: column; gap: 15px; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .container { margin-top: 140px; padding: 0 15px; }
+            .astrolabe-container { width: 240px; height: 240px; }
+            .node { width: 45px; height: 45px; }
+            .profile-name { font-size: 32px; }
+            .video-card .media-content { height: 220px; }
         }
     </style>
 </head>
@@ -338,100 +253,113 @@
 
     <div class="spacebreak-bg"></div>
 
+    <header>
+        <div class="logo font-genshin" onclick="showAlert('Sistem Utama House of the Hearth.')">
+            <span class="logo-icon">✘</span> GENSHIN FAN
+        </div>
+        <ul class="nav-links font-arle">
+            <li><a href="#" class="active">DATABASE</a></li>
+            <li><a href="#">ARSIP VISUAL</a></li>
+            <li><a href="#">INTELIJEN</a></li>
+            <li><a href="#" onclick="showAlert('Sistem log out diproses.')">KELUAR</a></li>
+        </ul>
+    </header>
+
     <div class="container">
         
-        <aside class="central-profile glass-panel">
-            <h2 class="nexus-header" style="align-items: center; border:none; padding:0; margin-bottom: 30px;">
-                <span>OVERVIEW_001</span>
-                <div class="glitch" style="font-size:30px;" data-text="LOG_STATUS">LOG_STATUS</div>
-            </h2>
-
-            <div class="profile-rings">
-                <div class="ring-outer"></div>
-                <div class="ring-middle"></div>
-                <div class="ring-inner"></div>
-                <img src="https://dummyimage.com/400x400/1a1a1a/c91414.png&text=Father+Profil" alt="The Knave Profil" class="avatar-img">
-            </div>
-
-            <h1 class="profile-name glitch" data-text="ARLECCHINO">ARLECCHINO</h1>
-            <h3 class="profile-title">CODE: THE KNAVE // HABINGER_04</h3>
-
-            <div class="profile-desc">
-                Direktur Utama "House of the Hearth". Pengawas dari tatanan intelijen dan keluarga Fatui. Sebuah bayangan yang bergerak di balik tata krama elegan Fontaine. Jangan pernah memunggungi 'Ayah', atau hadapi konsekuensi absolut.
-            </div>
-            <button class="btn-cyber" style="margin-top:40px;" onclick="showAlert('INITIATING MISSION BRIEFING...\nData Dimuat.')">ACCESS INTELLIGENCE</button>
-        </aside>
-
-        <main class="datanexus-panel">
+        <section class="glass-panel central-ui">
             
-            <section class="glass-panel" style="padding: 30px;">
-                <div class="nexus-header">
-                    <span>SECTION_002 // INTELLIGENCE NEXUS</span>
-                    <h2>ARSIP OPERASI</h2>
-                </div>
+            <h2 class="font-genshin" style="color: var(--pure-white); font-size: 24px;">PROFIL TARGET</h2>
+            
+            <div class="genshin-bar">
+                <div class="genshin-diamond"></div>
+            </div>
+
+            <div class="astrolabe-container">
+                <div class="ring-outer"></div>
+                <div class="ring-inner"></div>
                 
-                <p style="color: var(--text-dim); font-size: 16px; max-width: 800px; margin-bottom: 30px;">
-                    Sistem pengawasan dan dokumentasi intelijen 'Father'. Mencatat setiap pergerakan operasional House of the Hearth di seluruh Teyvat. Hanya untuk mata elit Fatui dan agen House yang berwenang. Kegagalan intelijen bukan pilihan.
-                </p>
-                <button class="btn-cyber" onclick="showAlert('Membuka Enkripsi Data Log...')">LOG DIBUKA</button>
-
-                <div class="datanexus-grid" style="margin-top:40px;">
-                    
-                    <div class="data-card">
-                        <div class="card-media">
-                            <span class="badge">LOG.VIS_01</span>
-                            <img src="image.png&text=Concept+Art" alt="Target Intel">
-                        </div>
-                        <div class="card-info">
-                            <span class="card-title">Concept Form</span>
-                            <span class="card-status">● VERIFIED</span>
-                        </div>
-                    </div>
-
-                    <div class="data-card">
-                        <div class="card-media">
-                            <video controls>
-                                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                                Browser tidak mendukung.
-                            </video>
-                        </div>
-                        <div class="card-info">
-                            <span class="card-title">Rekaman Combat</span>
-                            <span class="card-status">● CONFIRMED</span>
-                        </div>
-                    </div>
-
-                    <div class="data-card">
-                        <div class="card-media">
-                            <span class="badge">LOG.VIS_02</span>
-                            <img src="https://dummyimage.com/800x600/1a1a1a/e8e8e8.png&text=In-Game+Operation" alt="Location Recon">
-                        </div>
-                        <div class="card-info">
-                            <span class="card-title">Operasi Lapangan</span>
-                            <span class="card-status">● SECURED</span>
-                        </div>
-                    </div>
-
+                <div class="node node-1" onclick="showAlert('Memuat data Lyney...')">
+                    <img src="https://dummyimage.com/100x100/121212/888888.png&text=L" alt="Node 1">
                 </div>
-            </section>
+                <div class="node node-2" onclick="showAlert('Memuat data Lynette...')">
+                    <img src="https://dummyimage.com/100x100/121212/888888.png&text=L" alt="Node 2">
+                </div>
+                <div class="node node-3" onclick="showAlert('Memuat data Freminet...')">
+                    <img src="https://dummyimage.com/100x100/121212/888888.png&text=F" alt="Node 3">
+                </div>
+                <div class="node node-4" onclick="showAlert('Akses Ditolak.')">
+                    <span style="color: var(--crimson-red); font-weight: bold;">✘</span>
+                </div>
 
-        </main>
+                <img src="image.png&text=The+Knave" alt="Foto Arlecchino" class="main-avatar">
+            </div>
+
+            <h1 class="profile-name font-genshin glitch" data-text="ARLECCHINO">ARLECCHINO</h1>
+            <p class="profile-title font-arle">THE KNAVE // HARBINGER_04</p>
+
+            <div class="profile-desc font-arle">
+                Direktur House of the Hearth. Sebuah bayangan yang bergerak di balik tata krama yang elegan. Tatanan intelijen Fatui berada di bawah pengawasannya. Jangan pernah memunggungi 'Ayah', karena tidak ada pengampunan bagi pengkhianat.
+            </div>
+
+        </section>
+
+        <section class="glass-panel">
+            <h2 class="font-genshin" style="color: var(--pure-white); font-size: 24px; text-align: center;">ARSIP OPERASIONAL</h2>
+            
+            <div class="genshin-bar">
+                <div class="genshin-diamond"></div>
+            </div>
+
+            <div class="gallery-grid">
+                
+                <div class="media-card">
+                    <div class="media-content">
+                        <img src="https://dummyimage.com/600x400/121212/888888.png&text=Concept+Art" alt="Concept Art">
+                        <span class="badge">IMG_001</span>
+                    </div>
+                    <div class="media-info font-arle">
+                        <h4 class="font-genshin">Visual Form</h4>
+                        <p>Desain struktural seragam taktis House of the Hearth.</p>
+                    </div>
+                </div>
+
+                <div class="media-card">
+                    <div class="media-content">
+                        <img src="https://dummyimage.com/600x400/121212/888888.png&text=Recon+Data" alt="In-Game">
+                        <span class="badge">IMG_002</span>
+                    </div>
+                    <div class="media-info font-arle">
+                        <h4 class="font-genshin">Intelijen Lapangan</h4>
+                        <p>Pemantauan wilayah operasi di Fontaine.</p>
+                    </div>
+                </div>
+
+                <div class="media-card video-card">
+                    <div class="media-content">
+                        <video controls>
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung video.
+                        </video>
+                        <span class="badge">VID_COMBAT</span>
+                    </div>
+                    <div class="media-info font-arle">
+                        <h4 class="font-genshin">Eksekusi Crimson Moon</h4>
+                        <p>Rekaman demonstrasi kemampuan tempur. Target dinetralisir dengan efisiensi mematikan. Perhatikan anomali spasial saat serangan dilancarkan.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </div>
-
-    <div class="tech-divider"><span>[ MISSION STATUS: COMPLETE ]</span></div>
-
-    <footer>
-        <h3 class="glitch" style="color: var(--arle-neon-red); letter-spacing: 5px; margin-bottom: 10px; font-size: 24px;" data-text="GENSHIN FAN">GENSHIN FAN</h3>
-        <p style="color: var(--arle-dark-red); font-weight: 700; text-transform: uppercase; font-size: 14px;">[ Kesetiaan Mutlak Kepada 'Ayah' ]</p>
-        <p style="color: var(--text-dim); font-size: 13px; margin-top: 20px;">SYSTEM V.4.0. Dikembangkan untuk tatanan intelijen keluarga. Bukan produk resmi HoYoverse.</p>
-    </footer>
 
     <script>
         function showAlert(pesan) {
-            // Glitchy/Tech alert effect
-            alert("|| SYSTEM_ERROR.SPACE_FRACTURE ||\n\n✘ Pesan dari 'Father': \n" + pesan);
+            alert("♦ SISTEM FATUI ♦\n\n" + pesan);
         }
     </script>
 
 </body>
-</html>
+    </html>
+    
