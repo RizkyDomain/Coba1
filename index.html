@@ -9,18 +9,20 @@
     <style>
         /* --- ✨ PALET WARNA & VARIABEL MUTLAK ARLECCHINO ✨ --- */
         :root {
-            --void-black: #020202; /* Hitam pekat dasar */
-            --dark-gray: #101012; /* Hitam abu panel */
-            --pure-white: #ffffff; /* Putih bersih glowing */
-            --ash-white: #f0f0f0; /* Putih abu seimbang */
-            --neon-red: #ff1a33; /* Merah neon sangat menyala */
-            --crimson-red: #c91414; /* Merah darah */
-            --dark-red: #7a0b0b; /* Merah tua Fatui */
-            --glass-bg: rgba(20, 20, 22, 0.4); /* Transparansi Kaca Heavy */
-            --glass-border: rgba(255, 255, 255, 0.15); /* Border Kaca */
+            --void-black: #050505; /* Hitam pekat dasar */
+            --dark-gray: #121215; /* Hitam abu untuk panel */
+            --pure-white: #ffffff; /* Putih bersih */
+            --ash-gray: #a8a8a8; /* Abu-abu terang untuk teks & pantulan kaca */
+            --neon-red: #ff1f3a; /* Merah neon menyala (Elemental Burst) */
+            --crimson-red: #b30000; /* Merah darah pekat */
+            
+            /* Variabel Kaca yang Lebih Seimbang (Glassy Effect) */
+            --glass-bg: rgba(20, 20, 22, 0.4); 
+            --glass-border-light: rgba(255, 255, 255, 0.3); /* Kilap putih kaca */
+            --glass-border-dark: rgba(0, 0, 0, 0.6); /* Sisi gelap kaca */
         }
 
-        /* --- BASIC SETUP & SELECTION --- */
+        /* --- BASIC SETUP --- */
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         ::-moz-selection { background: var(--crimson-red); color: white; }
         ::selection { background: var(--crimson-red); color: white; }
@@ -31,189 +33,187 @@
             color: var(--pure-white);
             overflow-x: hidden;
             min-height: 100vh;
-            /* Update Background: Lebih Terang dengan pendaran neon merah dan noise gelap */
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(201, 20, 20, 0.2) 0%, var(--void-black) 70%),
-                linear-gradient(rgba(20, 20, 22, 0.98), rgba(20, 20, 22, 0.98)),
-                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM2YzAwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwaDIwdjIwSDIWMjB6TTAgMjBoMjB2MjBIMFYyMHoyMCAwaDIwdjIwSDIwVjB6Ii8+PC9nPjwvZz48L3N2Zz4=');
-            background-attachment: fixed;
         }
 
-        /* --- ✨ EFEK SPACE BREAK (RETAPAN RUANG BURST) & ECHO ✨ --- */
-        .spacebreak-bg {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
-            background: 
-                linear-gradient(110deg, transparent 40%, var(--crimson-red) 40.2%, transparent 40.4%, transparent 60%, var(--neon-red) 60.2%, transparent 60.4%),
-                linear-gradient(transparent 30%, rgba(255,255,255,0.03) 30.1%, transparent 30.2%);
-            background-size: 200% 200%;
-            /* Teknik clip-path untuk membuat retakan irisan tajam non-linear */
-            clip-path: polygon(0 0, 30% 0, 0 40%, 0 60%, 40% 0, 70% 0, 0 100%, 0 80%, 100% 0, 100% 20%, 30% 100%, 60% 100%, 100% 40%, 100% 60%, 100% 100%, 0 100%);
-            animation: spaceShatter 15s infinite linear alternate-reverse;
-            pointer-events: none;
-            opacity: 0.9;
+        /* --- ✨ EFEK ELEMENTAL BURST (CRIMSON MOON & SCYTHE SLASH) ✨ --- */
+        /* 1. Latar Belakang Luar Angkasa Gelap */
+        .burst-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -4;
+            background: radial-gradient(circle at center, #140000 0%, var(--void-black) 70%);
         }
 
-        @keyframes spaceShatter {
-            0% { background-position: 0% 0%; transform: scale(1); }
-            50% { background-position: 100% 100%; transform: scale(1.03); }
-            100% { background-position: 0% 0%; transform: scale(1); }
+        /* 2. Crimson Moon (Gerhana Merah di Belakang) */
+        .crimson-moon {
+            position: fixed; top: 40%; left: 70%; transform: translate(-50%, -50%);
+            width: 700px; height: 700px; border-radius: 50%; z-index: -3;
+            background: radial-gradient(circle, var(--void-black) 45%, var(--crimson-red) 55%, transparent 70%);
+            box-shadow: 0 0 80px rgba(255, 31, 58, 0.4), inset 0 0 50px rgba(255, 31, 58, 0.2);
+            opacity: 0.8;
         }
 
-        /* --- ✨ TYPOGRAPHY GENSHIN & ✦ DIAMOND STAR ✨ --- */
-        h1, h2, h3, .logo-text, .glitch {
-            font-family: 'Cinzel', serif; /* Gothic/Elegant Style */
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255,255,255,0.4);
+        /* 3. Tebasan Tajam / Retakan (Slash) */
+        .burst-slash-1 {
+            position: fixed; top: 20%; left: -20%; width: 150vw; height: 6px; z-index: -2;
+            background: var(--pure-white);
+            box-shadow: 0 0 15px var(--pure-white), 0 0 30px var(--neon-red), 0 0 60px var(--crimson-red);
+            transform: rotate(-25deg);
+            opacity: 0.8;
+            animation: slashPulse 4s infinite alternate ease-in-out;
         }
         
-        /* Implementasi Diamond Star Ikon Bintang di Judul */
-        .genshin-title::before {
-            content: '✦ '; /* Diamond Star khas Genshin */
+        .burst-slash-2 {
+            position: fixed; bottom: 10%; right: -10%; width: 100vw; height: 80vh; z-index: -3;
+            background: linear-gradient(135deg, var(--crimson-red), transparent);
+            clip-path: polygon(100% 100%, 100% 60%, 50% 80%, 80% 30%, 30% 60%, 0 100%);
+            opacity: 0.2;
+            filter: blur(8px);
+        }
+
+        @keyframes slashPulse {
+            0% { opacity: 0.6; filter: brightness(1); }
+            100% { opacity: 1; filter: brightness(1.5); }
+        }
+
+        /* --- ✨ TYPOGRAPHY GENSHIN & ✦ BINTANG DIAMOND ✨ --- */
+        h1, h2, h3, .font-genshin {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .genshin-star {
             color: var(--neon-red);
-            text-shadow: 0 0 10px var(--neon-red);
+            text-shadow: 0 0 12px var(--neon-red);
+            margin-right: 8px;
         }
 
-        /* --- ✨ GLITCH TEXT EFFECT (Untuk Nama Besar) ✨ --- */
-        .glitch {
-            position: relative;
-            display: inline-block;
-            color: var(--text-main);
-            font-weight: 900;
+        /* --- ✨ EFEK GLITCH GELOMBANG TAJAM (WAVE BREAK) ✨ --- */
+        .glitch-wave {
+            position: relative; display: inline-block; font-weight: 900;
         }
-        .glitch::before, .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: transparent;
-            pointer-events: none;
+        .glitch-wave::before, .glitch-wave::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent; pointer-events: none;
         }
-        .glitch::before {
-            left: 2px;
-            text-shadow: -2px 0 var(--neon-red);
-            clip: rect(24px, 550px, 90px, 0);
-            animation: glitch-anim 3s infinite linear alternate-reverse;
+        .glitch-wave::before {
+            left: 3px; text-shadow: -2px 0 var(--neon-red);
+            clip-path: polygon(0 20%, 100% 20%, 100% 30%, 0 30%);
+            animation: waveBreak 3s infinite linear alternate-reverse;
         }
-        .glitch::after {
-            left: -2px;
-            text-shadow: -2px 0 var(--ash-white);
-            clip: rect(85px, 550px, 140px, 0);
-            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        .glitch-wave::after {
+            left: -3px; text-shadow: -2px 0 var(--pure-white);
+            clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%);
+            animation: waveBreak 2.5s infinite linear alternate-reverse;
         }
-
-        @keyframes glitch-anim {
-            0% { clip: rect(10px, 9999px, 44px, 0); }
-            20% { clip: rect(80px, 9999px, 90px, 0); }
-            40% { clip: rect(30px, 9999px, 40px, 0); }
-            60% { clip: rect(90px, 9999px, 100px, 0); }
-            80% { clip: rect(20px, 9999px, 50px, 0); }
-            100% { clip: rect(60px, 9999px, 70px, 0); }
+        @keyframes waveBreak {
+            0% { transform: translateX(0); }
+            10% { transform: translateX(-4px) skewX(-15deg); }
+            20% { transform: translateX(4px); }
+            30% { transform: translateX(0); }
+            100% { transform: translateX(0); }
         }
 
-        /* --- ✨ HEADER NAVBAR (Fixed, Clean, & Glowing) ✨ --- */
+        /* --- ✨ HEADER NAVBAR (Glassy Putih/Abu Balance) ✨ --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(3, 3, 3, 0.75);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 2px solid var(--neon-red);
-            box-shadow: 0 4px 15px rgba(201, 20, 20, 0.3);
+            background: linear-gradient(to bottom, rgba(15, 15, 15, 0.9) 0%, rgba(5, 5, 5, 0.4) 100%);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border-light);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 60px;
+            padding: 15px 6%;
         }
 
-        .logo { font-size: 26px; font-weight: 900; color: var(--pure-white); cursor: pointer; display: flex; align-items: center; gap: 10px; }
-        .logo-icon { color: var(--neon-red); font-size: 30px; text-shadow: 0 0 10px var(--neon-red); }
+        .logo { font-size: 26px; font-weight: 900; color: var(--pure-white); cursor: pointer; display: flex; align-items: center; }
+        .logo-icon { color: var(--neon-red); font-size: 24px; text-shadow: 0 0 15px var(--neon-red); margin-right: 10px; }
 
         .nav-links { display: flex; gap: 40px; list-style: none; }
         .nav-links li a {
-            color: var(--text-dim); text-decoration: none; font-size: 15px; font-weight: 600;
-            text-transform: uppercase; transition: 0.3s; position: relative;
+            color: var(--ash-gray); text-decoration: none; font-size: 15px; font-weight: 600;
+            text-transform: uppercase; transition: 0.3s; position: relative; letter-spacing: 1px;
         }
         .nav-links li a:hover, .nav-links li a.active { color: var(--pure-white); text-shadow: 0 0 10px var(--pure-white); }
         .nav-links li a.active::after {
-            content: ' ✧'; /* Bintang kecil menempel di menu aktif */
-            color: var(--neon-red);
-            font-size: 12px;
+            content: ' ✦'; color: var(--neon-red); font-size: 13px; text-shadow: 0 0 10px var(--neon-red);
         }
 
-        /* --- GENSHIN DIVIDER UPDATED (Bulan Sabit & Diamond) --- */
+        /* --- ✨ GENSHIN DIVIDER ✨ --- */
         .genshin-bar {
-            display: flex; align-items: center; justify-content: center; width: 100%; margin: 30px 0; opacity: 0.8;
+            display: flex; align-items: center; justify-content: center; width: 100%; margin: 50px 0; opacity: 0.9;
         }
         .genshin-bar::before, .genshin-bar::after {
-            content: ''; flex: 1; height: 1.5px;
-            background: linear-gradient(90deg, transparent, var(--ash-white), transparent);
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--ash-gray), transparent);
         }
-        /* Icon Diamond/Wajik di tengah bar */
         .genshin-diamond {
-            width: 12px; height: 12px; background: var(--neon-red);
-            transform: rotate(45deg); margin: 0 18px; border: 1px solid var(--pure-white);
-            box-shadow: 0 0 10px var(--neon-red);
+            color: var(--neon-red); margin: 0 20px; font-size: 20px;
+            text-shadow: 0 0 15px var(--neon-red);
         }
 
-        /* --- INTERACTIVE BUTTON (Futuristic Cut & Glowing) --- */
-        .btn-action {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: rgba(201, 20, 20, 0.1); color: var(--pure-white);
-            border: 1.5px solid var(--neon-red); padding: 15px 40px;
-            font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 3px;
-            text-transform: uppercase; cursor: pointer; transition: 0.3s Ease-in-out;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-            position: relative; overflow: hidden;
-            z-index: 10;
-        }
-        .btn-action::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--neon-red); z-index: -1; transform: translateX(-100%); transition: 0.4s ease-in-out;
-        }
-        .btn-action:hover {
-            color: var(--void-black); box-shadow: 0 0 20px rgba(255, 26, 51, 0.7);
-            border-color: var(--pure-white);
-        }
-        .btn-action:hover::before { transform: translateX(0); }
-        .btn-action:active { transform: scale(0.95); }
-
-        /* --- MAIN LAYOUT --- */
+        /* --- ✨ MAIN LAYOUT ✨ --- */
         .container {
-            max-width: 1300px; margin: 0 auto; padding: 120px 8% 60px 8%;
-            display: flex; flex-direction: column; gap: 50px;
+            max-width: 1300px; margin: 0 auto; padding: 130px 6% 60px 6%;
+            display: flex; flex-direction: column; gap: 60px;
         }
 
-        /* --- ✨ PANEL KACA (HEAVY GLASSMORPHISM) DENGAN KRISTALISASI ✨ --- */
+        /* --- ✨ PANEL KACA (KRISTALISASI & KESEIMBANGAN WARNA) ✨ --- */
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 2px solid var(--glass-border); border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(255, 255, 255, 0.03);
+            /* Kilap Kaca di Kiri dan Atas, Gelap di Kanan dan Bawah */
+            border-top: 1px solid var(--glass-border-light);
+            border-left: 1px solid var(--glass-border-light);
+            border-bottom: 1px solid var(--glass-border-dark);
+            border-right: 1px solid var(--glass-border-dark);
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.05);
             padding: 50px; position: relative; overflow: hidden;
-            transition: 0.3s ease-in-out;
+            transition: 0.4s ease-in-out;
         }
-        /* Efek Kristalisasi Kaca (Pola wajik tipis menempel di kaca) */
+        
+        /* Efek Kilap Kaca Diagonal (Pantulan Cahaya) */
         .glass-panel::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px), linear-gradient(-45deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
-            background-size: 20px 20px; opacity: 0.5; z-index: -1; border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 40%);
+            pointer-events: none; z-index: 1; border-radius: 15px;
         }
-        .glass-panel:hover { border-color: rgba(255, 26, 51, 0.3); }
 
-        /* --- HERO SECTION ( Split Layout Landing Page ) --- */
+        .glass-panel:hover { border-top-color: var(--pure-white); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 31, 58, 0.2); }
+
+        /* --- ✨ HERO SECTION (Split Landing Page) ✨ --- */
         .hero-section {
-            display: flex; align-items: center; justify-content: space-between; min-height: 70vh; gap: 50px;
+            display: flex; align-items: center; justify-content: space-between; min-height: 70vh; gap: 40px;
         }
 
-        .hero-text { flex: 1.2; z-index: 10; text-align: left; }
-        .hero-text h3 { color: var(--neon-red); font-size: 18px; letter-spacing: 5px; margin-bottom: 15px; text-shadow: 0 0 10px var(--neon-red); }
-        .hero-text h1 { font-size: 60px; line-height: 1.1; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
-        .hero-text p { color: var(--text-dim); font-size: 18px; max-width: 550px; margin-bottom: 45px; line-height: 1.7; }
+        .hero-text { flex: 1.1; z-index: 10; }
+        .hero-text h3 { color: var(--neon-red); font-size: 18px; letter-spacing: 5px; margin-bottom: 15px; text-shadow: 0 0 10px var(--crimson-red); }
+        .hero-text h1 { font-size: 70px; line-height: 1.1; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        .hero-text p { color: var(--ash-gray); font-size: 18px; max-width: 500px; margin-bottom: 40px; line-height: 1.8; }
+
+        /* Tombol Interaktif */
+        .btn-interact {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            background: rgba(255, 255, 255, 0.05); color: var(--pure-white);
+            border: 1px solid var(--ash-gray); border-left: 3px solid var(--neon-red);
+            padding: 15px 40px; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+            position: relative; overflow: hidden; z-index: 10;
+        }
+        .btn-interact::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--neon-red); z-index: -1; transform: translateX(-101%); transition: 0.4s ease-in-out;
+        }
+        .btn-interact:hover { color: var(--pure-white); border-color: var(--neon-red); box-shadow: 0 0 25px rgba(255, 31, 58, 0.5); }
+        .btn-interact:hover::before { transform: translateX(0); }
 
         .hero-image {
-            flex: 0.8; display: flex; justify-content: center; position: relative;
+            flex: 0.9; display: flex; justify-content: flex-end; position: relative; z-index: 5;
         }
-        /* Efek melayang perlahan (Floating) */
+        /* Gambar Karakter Melayang */
         .hero-image img {
-            width: 100%; max-width: 650px; object-fit: contain;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 30px rgba(201, 20, 20, 0.2));
-            animation: float 8s ease-in-out infinite;
+            width: 100%; max-width: 700px; object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.9)) drop-shadow(0 0 30px rgba(204, 0, 0, 0.2));
+            animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
@@ -222,117 +222,112 @@
             100% { transform: translateY(0px); }
         }
 
-        /* --- CHARACTER INFO SECTION (Gambar Kiri, Detail Glass Panel Kanan) --- */
+        /* --- ✨ CHARACTER INFO SECTION ✨ --- */
         .info-section {
-            display: flex; align-items: center; justify-content: space-between; gap: 60px; margin-top: 50px;
+            display: flex; align-items: center; justify-content: space-between; gap: 50px;
         }
 
-        .info-image { flex: 1; text-align: center; }
+        .info-image { flex: 1; text-align: center; z-index: 5; }
         .info-image img {
             width: 100%; max-width: 480px; object-fit: contain;
-            filter: grayscale(20%) contrast(110%) drop-shadow(0 0 30px rgba(255, 26, 51, 0.15));
+            filter: contrast(110%) drop-shadow(0 0 20px rgba(255, 255, 255, 0.05));
             transition: 0.4s;
         }
-        .info-image img:hover { filter: grayscale(0%) contrast(100%) drop-shadow(0 0 30px rgba(255, 26, 51, 0.35)); }
 
-        .info-details { flex: 1; }
+        .info-details { flex: 1.2; z-index: 5; position: relative; }
         
-        /* Tipografi Genshin Wajib: Menggunakan ✦ */
-        .info-details h2 { font-size: 44px; margin-bottom: 5px; color: var(--text-main); }
-        .info-stars { color: var(--text-main); font-size: 20px; letter-spacing: 6px; margin-bottom: 25px; }
-        .info-stars span { color: var(--neon-red); text-shadow: 0 0 10px var(--neon-red); }
+        .info-details h2 { font-size: 48px; margin-bottom: 5px; color: var(--pure-white); }
+        .info-stars { color: var(--pure-white); font-size: 22px; letter-spacing: 6px; margin-bottom: 25px; }
+        .info-stars span { color: var(--neon-red); text-shadow: 0 0 15px var(--neon-red); }
         
-        .info-desc { font-size: 16px; color: var(--text-dim); line-height: 1.8; margin-bottom: 35px; text-align: left; }
+        .info-desc { font-size: 17px; color: var(--ash-gray); line-height: 1.8; margin-bottom: 35px; }
 
-        /* Atribut Grid (High Contrast Data) */
         .attr-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 25px;
-            border-top: 1px solid var(--glass-border); padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 30px;
         }
-        .attr-item h4 { font-size: 14px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; }
-        .attr-item p { font-size: 19px; color: var(--text-main); font-weight: 600; font-family: 'Rajdhani', sans-serif; }
+        .attr-item h4 { font-size: 14px; color: var(--ash-gray); text-transform: uppercase; margin-bottom: 5px; }
+        .attr-item p { font-size: 20px; color: var(--pure-white); font-weight: 600; }
 
-        /* --- ✨ MEDIA GALLERY SECTION (UPDATE: RETAK GELOMBANG ECHO TILT) ✨ --- */
+        /* --- ✨ MEDIA GALLERY SECTION ✨ --- */
         .media-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 50px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;
         }
         
         .media-box {
-            background: rgba(10, 10, 10, 0.7); border: 2px solid var(--glass-border);
+            background: var(--dark-gray);
+            border-top: 1px solid var(--glass-border-light);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--glass-border-dark);
+            border-right: 1px solid var(--glass-border-dark);
             border-radius: 12px; overflow: hidden; position: relative;
             transition: 0.4s ease-in-out; cursor: pointer;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
-        /* Efek Miring Tipis (Tilt) saat Hover */
+        
         .media-box:hover {
-            border-color: rgba(255, 26, 51, 0.6); transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
-            box-shadow: 0 15px 40px rgba(201, 20, 20, 0.3);
+            border-top-color: var(--neon-red); transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(204, 0, 0, 0.4);
         }
         
         .media-box img, .media-box video {
-            width: 100%; height: 220px; object-fit: cover;
-            filter: grayscale(60%) contrast(110%); transition: 0.5s ease-in-out;
+            width: 100%; height: 240px; object-fit: cover;
+            filter: grayscale(40%) contrast(110%); transition: 0.5s ease-in-out;
         }
         .media-box:hover img, .media-box:hover video { filter: grayscale(0%) contrast(100%); transform: scale(1.05); }
 
         .media-label {
             position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px;
             background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
-            font-size: 15px; font-weight: 700; color: var(--text-main); text-transform: uppercase;
+            font-size: 16px; font-weight: 700; color: var(--pure-white); text-transform: uppercase;
             letter-spacing: 2px;
         }
-        /* Icon ✦ di label media */
-        .media-label::before { content: '✦ '; color: var(--neon-red); }
 
-        /* Video Card Lebar (Lebar Penuh) */
         .media-box.video-large { grid-column: span 3; }
-        .media-box.video-large img, .media-box.video-large video { height: 400px; }
-        .media-box.video-large .media-label { background: linear-gradient(to top, rgba(168,0,0,0.9), transparent); border-top: 1px solid var(--text-main); }
+        .media-box.video-large img, .media-box.video-large video { height: 450px; }
 
         /* --- FOOTER --- */
-        footer { margin-top: 80px; padding: 60px 20px; text-align: center; background: rgba(0, 0, 0, 0.98); border-top: 2px solid var(--crimson-red); position: relative; }
-        footer::before { content: ''; position: absolute; top: -1px; left: 50%; width: 250px; height: 3px; background: var(--neon-red); transform: translateX(-50%); box-shadow: 0 0 15px var(--neon-red); }
+        footer { margin-top: 80px; padding: 50px 20px; text-align: center; background: rgba(2, 2, 2, 0.95); position: relative; }
+        footer::before { content: ''; position: absolute; top: 0; left: 50%; width: 300px; height: 2px; background: var(--neon-red); transform: translateX(-50%); box-shadow: 0 0 20px var(--neon-red); }
 
-        /* RESPONSIVE MOBILE (Update: Tampilan HP) */
+        /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 990px) {
-            header { padding: 10px 20px; position: fixed; top: 0; width: 100%; gap: 10px; flex-direction: column; }
-            .logo { font-size: 20px; }
-            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
-            .nav-links li a { font-size: 13px; letter-spacing: 1px; }
+            header { padding: 15px 5%; position: fixed; top: 0; width: 100%; gap: 15px; flex-direction: column; }
+            .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
 
-            .container { padding: 130px 5% 60px 5%; margin: 0; gap: 30px; }
-            .glass-panel { padding: 30px; border-radius: 15px; }
+            .container { padding: 140px 5% 50px 5%; margin: 0; gap: 40px; }
+            .glass-panel { padding: 30px; }
             
-            .hero-section, .info-section { flex-direction: column; text-align: center; gap: 30px; }
+            .hero-section, .info-section { flex-direction: column; text-align: center; gap: 40px; }
             .hero-text, .info-details { text-align: center; order: 2; width: 100%; }
-            .hero-text h1 { font-size: 38px; }
-            .hero-text p, .info-desc { margin-left: auto; margin-right: auto; font-size: 15px; }
+            .hero-text h1 { font-size: 45px; }
+            .hero-text p, .info-desc { margin-left: auto; margin-right: auto; }
             .info-image, .hero-image { order: 1; width: 100%; display: flex; justify-content: center; }
-            .info-stars span { font-size: 16px; }
 
-            .attr-grid { grid-template-columns: 1fr; gap: 20px; padding-top: 20px; }
-            .attr-item p { font-size: 16px; }
+            .attr-grid { grid-template-columns: 1fr; gap: 20px; }
 
             .media-grid { grid-template-columns: 1fr; gap: 20px; }
             .media-box.video-large { grid-column: span 1; }
-            .media-box img, .media-box video, .media-box.video-large img, .media-box.video-large video { height: 180px; }
-            .media-label { font-size: 13px; padding: 15px; }
+            .media-box img, .media-box video, .media-box.video-large img, .media-box.video-large video { height: 200px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="spacebreak-bg"></div>
+    <div class="burst-bg"></div>
+    <div class="crimson-moon"></div>
+    <div class="burst-slash-1"></div>
+    <div class="burst-slash-2"></div>
 
     <header>
         <div class="logo font-genshin" onclick="showAlert('Sistem Utama House of the Hearth diakses.')">
-            <span class="logo-icon">✘</span> GENSHIN FAN
+            <span class="genshin-star">✦</span> GENSHIN FAN
         </div>
         <ul class="nav-links font-arle">
             <li><a href="#" class="active">Nexus</a></li>
-            <li><a href="#info">Arsip</a></li>
+            <li><a href="#info">Arsip Data</a></li>
             <li><a href="#media">Protokol</a></li>
-            <li><a href="#" onclick="showAlert('Menghubungkan ke tatanan intelijen keluarga...')">Hubungi</a></li>
+            <li><a href="#" onclick="showAlert('Memulai komunikasi dengan markas...')">Hubungi</a></li>
         </ul>
     </header>
 
@@ -340,36 +335,36 @@
         
         <section class="hero-section">
             <div class="hero-text">
-                <h3 class="font-arle">✦ HARBINGER // HABINGER_04</h3>
-                <h1 class="font-genshin glitch" data-text="THE KNAVE">THE KNAVE</h1>
+                <h3 class="font-arle"><span class="genshin-star">✦</span> HARBINGER // 04</h3>
+                <h1 class="font-genshin glitch-wave" data-text="THE KNAVE">THE KNAVE</h1>
                 <p class="font-arle">
                     "Dunia ini hanyalah sebuah panggung, traveler. Di bawah pengawasan House of the Hearth, tidak ada ruang untuk kelemahan. Hadapi kebenaran, atau biarkan api 'Crimson Moon' menghanguskanmu."
                 </p>
                 <button class="btn-interact font-arle" onclick="showAlert('Inisiasi Protokol Intelijen... Memuat Data.')">
-                    AKSES DATA PROFIL ✘
+                    ✦ AKSES DATA PROFIL
                 </button>
             </div>
             <div class="hero-image">
-                <img src="arlecchino.png" alt="Arlecchino Splash Art">
+                <img src="https://dummyimage.com/1000x1000/030303/ff1a33.png&text=Ganti+dgn+Arlecchino+Bersayap" alt="Arlecchino Splash Art">
             </div>
         </section>
 
         <div class="genshin-bar" id="info">
-            <div class="genshin-diamond"></div>
+            <div class="genshin-diamond font-genshin">✦</div>
         </div>
 
         <section class="info-section glass-panel">
             <div class="info-image">
-                <img src="image.png" alt="Arlecchino Concept">
+                <img src="https://dummyimage.com/600x900/030303/ffffff.png&text=Ganti+dgn+Arlecchino+Berdiri" alt="Arlecchino Concept">
             </div>
             
             <div class="info-details">
-                <h2 class="genshin-title font-genshin">ARLECCHINO</h2>
+                <h2 class="font-genshin"><span class="genshin-star">✦</span> ARLECCHINO</h2>
                 <div class="info-stars">
                     <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
                 <p class="info-desc font-arle">
-                    Dikenal sebagai "Ayah" (Father) oleh anak-anak di House of the Hearth. Ia memimpin operasi intelijen Fatui di Fontaine. Di balik tata krama yang elegan dan senyumnya yang tenang, terdapat eksekutor mematikan yang tidak memberikan ampun bagi para pengkhianat. Jangan pernah memunggungi 'Ayah'.
+                    Dikenal sebagai "Ayah" (Father) oleh anak-anak di House of the Hearth. Ia memimpin operasi intelijen Fatui di Fontaine. Di balik tata krama yang elegan dan senyumnya yang tenang, terdapat eksekutor mematikan yang tidak memberikan ampun bagi para pengkhianat.
                 </p>
                 
                 <div class="attr-grid font-arle">
@@ -394,36 +389,39 @@
         </section>
 
         <div class="genshin-bar" id="media">
-            <div class="genshin-diamond"></div>
-    </div>
+            <div class="genshin-diamond font-genshin">✦</div>
+        </div>
 
         <section class="media-grid">
             <div class="media-box">
-                <img src="https://dummyimage.com/400x300/101010/a0a0a0.png&text=Media+1" alt="Arlecchino Foto 1">
-                <div class="media-label font-arle">Visual Form ✘</div>
+                <img src="https://dummyimage.com/400x300/151515/b0b0b0.png&text=Foto+Visual" alt="Visual Form">
+                <div class="media-label font-arle"><span class="genshin-star">✦</span> Visual Form</div>
             </div>
             <div class="media-box">
-                <img src="https://dummyimage.com/400x300/101010/a0a0a0.png&text=Media+2" alt="Arlecchino Foto 2">
-                <div class="media-label font-arle">Intel Operasi ✘</div>
+                <img src="https://dummyimage.com/400x300/151515/b0b0b0.png&text=Foto+Intel" alt="Intel Operasi">
+                <div class="media-label font-arle"><span class="genshin-star">✦</span> Intel Operasi</div>
             </div>
             <div class="media-box video-large">
                 <video controls>
                     <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                     Browser Anda tidak mendukung tag video.
                 </video>
-                <div class="media-label font-arle">Rekaman Combat: Crimson Moon ✘</div>
+                <div class="media-label font-arle"><span class="genshin-star">✦</span> Rekaman Combat: Crimson Moon</div>
             </div>
         </section>
 
     </div>
 
+    <footer>
+        <h3 class="font-genshin" style="color: var(--pure-white); font-size: 20px;"><span class="genshin-star">✦</span> GENSHIN FAN</h3>
+        <p class="font-arle" style="color: var(--ash-gray); margin-top: 10px; font-size: 14px;">Dikembangkan untuk intelijen House of the Hearth.</p>
+    </footer>
+
     <script>
         function showAlert(pesan) {
-            // Efek Alert khas sistem Fatui
-            alert("♦ PROTOKOL FATUI ♦\n\n✘ Sistem: " + pesan);
+            alert("✦ PROTOKOL FATUI ✦\n\nSistem: " + pesan);
         }
     </script>
 
 </body>
 </html>
-    
