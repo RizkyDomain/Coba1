@@ -33,42 +33,92 @@
             overflow-x: hidden;
             min-height: 100vh;
         }
-
-        /* --- Background ---*/
+        /* --- Background --- */
         .sky-bg {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -6;
-            background: radial-gradient(circle at top center, var(--night-sky) 0%, var(--midnight-blue) 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10;
+            background: radial-gradient(circle at top center, #050b18 0%, #000205 100%);
         }
         
+        /* --- Star Field --- */
+        .star-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -9;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 160px 120px, #ddd, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.3;
+            animation: twinkle 5s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+        
+        /* --- Divine Moon Image --- */
         .divine-moon-image {
-            position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%);
-            width: 120vw; height: 120vh; 
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120vw;
+            height: 120vh;
             z-index: -5;
-            
             background-image: url('columbina.png');
             background-size: cover;
             background-position: center;
-        
-            mix-blend-mode: screen; 
-            opacity: 0.85;
             
-            mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 65%);
-            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 65%);
+            /* Reduced brightness settings */
+            mix-blend-mode: soft-light; 
+            opacity: 0.55;
+            filter: brightness(0.8) contrast(1.2) saturate(0.9);
+            
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 60%);
+            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 60%);
             
             animation: moonBreathe 8s infinite alternate ease-in-out;
             pointer-events: none;
         }
-
-        /* Pendaran Magenta Halus di Bawah */
+        
+        /* --- Bottom Glow --- */
         .magenta-aurora {
-            position: fixed; bottom: -20%; left: 0%; width: 100vw; height: 50vh; z-index: -4;
-            background: radial-gradient(ellipse at bottom, rgba(224, 36, 181, 0.15) 0%, transparent 60%);
-            filter: blur(40px); pointer-events: none;
+            position: fixed;
+            bottom: -20%;
+            left: 0;
+            width: 100vw;
+            height: 50vh;
+            z-index: -4;
+            background: radial-gradient(ellipse at bottom, rgba(224, 36, 181, 0.1) 0%, transparent 70%);
+            filter: blur(60px);
+            pointer-events: none;
         }
-
+        
+        /* --- Animations --- */
         @keyframes moonBreathe {
-            0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.7; }
-            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; filter: brightness(1.2); }
+            0% { 
+                transform: translate(-50%, -50%) scale(0.98); 
+                opacity: 0.45; 
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(1.02); 
+                opacity: 0.65; 
+            }
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: translateY(0); }
+            100% { opacity: 0.5; transform: translateY(-5px); }
         }
 
         /* --- Partikel --- */
@@ -108,7 +158,7 @@
             100% { transform: translateX(3px) scale(1.02); filter: blur(3px); opacity: 0.8; }
         }
 
-        /* --- ✨ HEADER NAVBAR (Crystal Frost Glass) ✨ --- */
+        /* --- Header NavBAr --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             background: rgba(2, 6, 23, 0.4);
@@ -127,15 +177,15 @@
         .nav-links li a:hover, .nav-links li a.active { color: var(--pure-white); text-shadow: 0 0 15px var(--moon-cyan); }
         .nav-links li a.active::after { content: ' ✦'; color: var(--pure-white); font-size: 12px; text-shadow: 0 0 10px var(--moon-cyan); }
 
-        /* --- ✨ GENSHIN DIVIDER ✨ --- */
+        /* --- divider --- */
         .genshin-bar { display: flex; align-items: center; justify-content: center; width: 100%; margin: 50px 0; opacity: 0.9; }
         .genshin-bar::before, .genshin-bar::after { content: ''; flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); }
         .genshin-diamond { color: var(--pure-white); margin: 0 20px; font-size: 20px; text-shadow: 0 0 20px var(--moon-cyan); transform: scaleY(1.2); }
 
-        /* --- ✨ MAIN LAYOUT ✨ --- */
+        /* --- main layout --- */
         .container { max-width: 1300px; margin: 0 auto; padding: 130px 6% 60px 6%; display: flex; flex-direction: column; gap: 60px; }
 
-        /* --- ✨ TRUE CRYSTAL GLASSMORPHISM PANEL ✨ --- */
+        /* --- ✨ panel effect --- */
         .crystal-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(35px) saturate(150%); -webkit-backdrop-filter: blur(35px) saturate(150%);
@@ -259,14 +309,14 @@
     <div id="dew-container"></div>
 
     <header>
-        <div class="logo font-genshin" onclick="showAlert('Sistem Utama House of the Hearth diakses.')">
-            <span class="genshin-star">✦</span> GENSHIN FAN
+        <div class="logo font-genshin" onclick="showAlert('Don,t forget to turn on the google translation features.')">
+            <span class="genshin-star">✦</span> Biography Page 
         </div>
         <ul class="nav-links font-arle">
-            <li><a href="#" class="active">Elysium</a></li>
-            <li><a href="#info">Arsip Suci</a></li>
-            <li><a href="#media">Melodi</a></li>
-            <li><a href="#" onclick="showAlert('Memulai nyanyian pelindung...')">Berdialog</a></li>
+            <li><a href="#" class="active">Main</a></li>
+            <li><a href="#info">Experience</a></li>
+            <li><a href="#media">Documentation</a></li>
+            <li><a href="#">Contact</a></li>
         </ul>
     </header>
 
@@ -274,17 +324,17 @@
         
         <section class="hero-section">
             <div class="hero-text">
-                <h3 class="font-arle"><span class="genshin-star">✦</span> HARBINGER // 03</h3>
-                <h1 class="font-genshin prism-wave" data-text="DAMSELETTE">DAMSELETTE</h1>
+                <h3 class="font-arle"><span class="genshin-star">✦</span> March 2005</h3>
+                <h1 class="font-genshin prism-wave" data-text="DAMSELETTE">AULIA RIZKY S</h1>
                 <p class="font-arle">
-                    "Sang Dewi Bulan yang tertidur dalam nyanyian abadi. Di bawah naungan cahaya embun dan kristal es, ia membimbing jiwa-jiwa yang hilang. Ia adalah Fatui, namun hatinya menyimpan kedamaian yang melampaui pemahaman manusia."
+                    "21 years old human that loves music and art, yet do things like an overworking (overhyping) office worker. Creativity that has high as responsibility. Improve better than complaining, laugh the stress out"
                 </p>
-                <button class="btn-interact font-arle" onclick="showAlert('Mendengarkan senandung Damselette... Hati terasa damai.')">
-                    <span class="genshin-star" style="margin:0; text-shadow:none;">✦</span> TEMUI SANG DEWI
+                <button class="btn-interact font-arle" onclick="showAlert('bet you have ADHD')">
+                    <span class="genshin-star" style="margin:0; text-shadow:none;">✦</span> Continue...
                 </button>
             </div>
             <div class="hero-image">
-                <img src="https://dummyimage.com/1000x1000/0f172a/ffffff.png&text=Foto+Columbina+Bersayap" alt="Columbina Splash Art">
+                <img src="arlecchino.png">
             </div>
         </section>
 
@@ -294,11 +344,11 @@
 
         <section class="info-section crystal-panel">
             <div class="info-image">
-                <img src="https://dummyimage.com/600x900/0f172a/ffffff.png&text=Concept+Art+Columbina" alt="Columbina Concept">
+                <img src="arlecchino.png">
             </div>
             
             <div class="info-details">
-                <h2 class="font-genshin"><span class="genshin-star" style="color:var(--pure-white);">✦</span> COLUMBINA</h2>
+                <h2 class="font-genshin"><span class="genshin-star" style="color:var(--pure-white);">✦</span> Rein</h2>
                 <div class="info-stars">
                     <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
