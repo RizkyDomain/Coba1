@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genshin Fan - Dewi Bulan Columbina</title>
+    <title>Biography Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- ✨ PALET WARNA KRISTAL DEWI BULAN ✨ --- */
         :root {
-            --midnight-blue: #020617; /* Malam pekat agar kristal menyala */
+            --midnight-blue: #020617; 
             --night-sky: #0a1128; 
-            --pure-white: #ffffff; /* Putih suci */
-            --moon-cyan: #60a5fa; /* Biru es/embun bercahaya dari bulan */
-            --magenta-glow: #e024b5; /* Magenta khas Columbina */
-            --silver-text: #cbd5e1; /* Abu-abu terang untuk teks */
+            --pure-white: #ffffff; 
+            --moon-cyan: #60a5fa; 
+            --magenta-glow: #e024b5; 
+            --silver-text: #cbd5e1; 
             
             /* TRUE CRYSTAL GLASSMORPHISM */
-            --glass-bg: rgba(255, 255, 255, 0.05); /* Sangat transparan */
-            --glass-border-highlight: rgba(255, 255, 255, 0.6); /* Kilap tajam kaca */
+            --glass-bg: rgba(255, 255, 255, 0.05); 
+            --glass-border-highlight: rgba(255, 255, 255, 0.6);
             --glass-border-dim: rgba(255, 255, 255, 0.1);
         }
 
@@ -35,28 +34,24 @@
             min-height: 100vh;
         }
 
-        /* --- ✨ LATAR BELAKANG: MALAM PEKAT ✨ --- */
+        /* --- Background ---*/
         .sky-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -6;
             background: radial-gradient(circle at top center, var(--night-sky) 0%, var(--midnight-blue) 100%);
         }
-
-        /* --- ✨ GAMBAR BULAN RAKSASA (Referensi Columbina) ✨ --- */
+        
         .divine-moon-image {
             position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%);
-            width: 120vw; height: 120vh; /* Dibuat sangat besar agar memenuhi layar */
+            width: 120vw; height: 120vh; 
             z-index: -5;
             
-            /* GANTI URL DI BAWAH INI DENGAN LINK GAMBAR BULANMU */
-            background-image: url('images (6).jpeg');
+            background-image: url('columbina.png');
             background-size: cover;
             background-position: center;
-            
-            /* Teknik membaurkan gambar dengan latar gelap */
+        
             mix-blend-mode: screen; 
             opacity: 0.85;
             
-            /* Memudarkan bagian tepi gambar agar menyatu dengan background malam */
             mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 65%);
             -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 65%);
             
@@ -76,7 +71,7 @@
             100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; filter: brightness(1.2); }
         }
 
-        /* --- ✨ PARTIKEL EMBUN / CAHAYA SUCI ✨ --- */
+        /* --- Partikel --- */
         #dew-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -3; pointer-events: none; overflow: hidden; }
         .dewdrop {
             position: absolute; top: -10px; background: var(--pure-white); border-radius: 50%;
